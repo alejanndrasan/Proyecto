@@ -7,3 +7,5 @@ class Play(Event):
     
     def get_synopsis(self):
         return self.__synopsis
+    def set_synopsis(self, new_synopsis):
+        self.__synopsis = new_synopsis

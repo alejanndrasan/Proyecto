@@ -3,7 +3,8 @@ class Event():
         self.__event_name = event_name
         self.__poster = poster
         self.__date = date
-        
+    
+    #Getters:    
     def get_event_name(self):
         return self.__event_name
     
@@ -18,6 +19,22 @@ class Event():
     
     def get_price(self):
         return self.__price
+
+    #Setters:
+    
+    def set_event_name(self, new_name):
+        self.__event_name = new_name
+    
+    def set_poster(self, new_poster):
+        self.__poster = new_poster
+    
+    def set_date(self, new_date):
+        self.__date = new_date
+    
+    def set_price(self, new_price):
+        self.__price = new_price
+    
+
 
 
 

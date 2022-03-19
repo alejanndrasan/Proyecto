@@ -1,6 +1,6 @@
 import pickle
 import os
-import resquests
+import requests
 import json
 
 #Cargar datos:
