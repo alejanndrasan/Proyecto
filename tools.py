@@ -1,25 +1,20 @@
-import pickle
-import os
+
 import requests
 import json
 
 #Cargar datos:
 
-def read_db(txt, data):
-    a = open(txt, "rb")
-    if os.stat(txt).st_size != 0:
-        data = pickle.load(a)
-    a.close()
-
-    return data
+def cargar_datos(txt, db):
+    with open(txt) as dbe:
+        db = dbe.readlines()
+    return db
 
 #Subir datos:
 
-def write(txt, data):
+def write(txt, datos):
+    with open(txt,"a+") as dbe:
+        dbe.write(datos)
     
-    b = open(txt, "wb")
-    pickle.dump(data, b)
-    b.close()
 
 
 #Cargar JSON:
@@ -31,3 +26,6 @@ def _json():
     if answer.status_code == 200:
         db = answer.json()
         return db 
+
+
+
