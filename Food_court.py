@@ -1,5 +1,5 @@
 class Food_court:
-    def __init__(self, product_name, price):
+    def __init__(self, product_name, price): #AGREGAR OPEN PORQUE SE ACABA EL STOCK
         self.__product_name = product_name
         self.__price = price
     

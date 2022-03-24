@@ -5,7 +5,7 @@ class Event():
         self.date = date
         self.layout = layout
         self.ticket = ticket
-        self.opened = opened 
+        self.opened = opened #Pasar este atributo a False una vez que se llenen todos los puestos
     
     def show_title(self):
         print(f'''\n------------------ Titulo ------------------\n
@@ -24,12 +24,12 @@ class Event():
     
     def show_tickets(self):
         print(f'''\n------------------ Tickets ------------------\n
-        Sala General: {self.ticket[0]}. 
-        Sala VIP: {self.ticket[0]}''')
+        Sala General: Bs. {self.ticket[0]}. 
+        Sala VIP: Bs. {self.ticket[1]}.''')
     
     def show_layout(self):
         print(f'''\n------------------ Puestos ------------------\n''')
-        for i in self.layout:
+        for i in self.layout: #IMPRIME LA PARTE VIP TODO VIP
             print(i)
     
     def open_close(self, msg):
@@ -56,7 +56,7 @@ class Theater(Event):
             self.show_date()
             self.show_tickets()
             self.show_layout()
-        
+
     
 class Music(Event):
     def __init__(self, title, poster, layout, ticket, date, q_band, opened):
@@ -72,7 +72,7 @@ class Music(Event):
             self.show_title()
             self.show_q_band()
             self.show_poster()
-            self.show_date() #En los conciertos no esta mostrando la fecha, preguntar.
+            self.show_date() 
             self.show_tickets()
             self.show_layout()
         

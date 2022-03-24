@@ -15,10 +15,10 @@ def fix_layout(layout): #Esta funcion organiza la matriz del layout (general y V
 		a = matriz[j]
 		for i in range(y):
 			a[i] = a[i]+str(i)
-	matriz_final = matriz.append(fix_layout_vip(layout))
+	matriz=fix_layout_vip(layout,matriz)
 	return matriz
 
-def fix_layout_vip(layout): #Esta funcion organiza los puestos de la zona VIP.
+def fix_layout_vip(layout,matriz): #Esta funcion organiza los puestos de la zona VIP.
 	x = layout['vip'][0]
 	y = layout['vip'][1]
 	matrix = ['V'] * x
@@ -28,7 +28,10 @@ def fix_layout_vip(layout): #Esta funcion organiza los puestos de la zona VIP.
 		a = matrix[j]
 		for i in range(y):
 			a[i] = a[i]+str(i)
+
 	return matrix
+
+
 
 def objectify_data_concerts(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo Musica.
 	for event in range(len(db["events"])):         
@@ -44,20 +47,19 @@ def objectify_data_plays(db, lista): #Esta funcion transforma los datos de la AP
 			lista.append(play_n)
 	return lista
 
-#Esto debo hacerlo en el main, esta aca mientras.
+#Esto debo hacerlo SOLO 1 VEZ, y cuando se quiera reiniciar, esta aca mientras.
 lista1 = objectify_data_concerts(db, [])
-lista2 = objectify_data_plays(db, [])
+lista2 = objectify_data_plays(db, []) #1, 2 y 3 de notas.
+
 
 def buscar_evento():
 	tipo = val_int('\nIngrese el tipo de evento que busca: \n1.Tipo musical. \n2.Tipo teatral. \n==> ', 3)
-	filtros = []
 	while True:
 		filtro = val_int('''\nIngrese el filtro por los que desea buscarlo:
 		1. Titulo
 		2. Artista o banda.
 		3. Fecha.
 		==> ''', 4)
-		filtros.append(filtro)
 		otro = val_int('\nIngrese 1 para agregar otro filtro, 2 para finaliza: ', 3)
 		if otro == 1:
 			continue
@@ -66,50 +68,26 @@ def buscar_evento():
 
 def busqueda_lineal_play(filtro, lista):	
 	if filtro == 1:
-		while True:
-			titulo = val_str('\nIngrese el nombre del evento que desea buscar: ')
-			for i in lista:
-				print(i.title)
-				if titulo == i.title:
-					print(i.show_whole_play()) #Me esta imprimiendo unas cosas extra
-					break
-				else:
-					otro = val_int('\nEvento no encontrado, para volver a buscar, ingrese 1, para salir ingrese 1: ', 3)
-					if otro == 1:
-						continue
-					else:
-						break
+		titulo = val_str('\nIngrese el nombre del evento que desea buscar: ')
+		for i in range(len(lista)):
+			if lista[i].title == titulo:
+				lista[i].show_whole_play() 
+				break
+			elif lista[i].title != titulo:
+				print('Evento no encontrado')
 	elif filtro == 2:
-		while True:
-			artista = val_names('\nIngrese el nombre del artista que desea buscar: ')
-			for i in lista:
-				print(i.poster)
-				for j in i.poster:
-					if artista == j:
-						print(i.show_whole_play())
-						break
-					'''else:
-						otro = val_int('\nEvento no encontrado, para volver a buscar, ingrese 1, para salir ingrese 1: ', 3)
-						if otro == 1:
-							continue
-						else:
-							break'''
-	'''elif filtro == 3:
-		while True:
-			mes = val_int('\nIngrese el mes del evento que desea buscar: ')
-			for i in lista:
-				for j in i.date.split('-'):
-					if mes == j[1]:
-						print(i.show_whole_play())
-					else:
-						otro = val_int('\nEvento no encontrado, para volver a buscar, ingrese 1, para salir ingrese 1: ', 3)
-						if otro == 1:
-							continue
-						else:
-							break'''
+		artista = val_names('\nIngrese el nombre del artista que desea buscar: ')
+		index=-1
+		for i in range(len(lista)):
+			for j in range(len(lista[i].poster)):
+				if lista[i].poster[j] == artista:
+					index=i
+		if index==-1:
+			print("Evento no encontrado")
+		else:
+			lista[index].show_whole_play()
 
 busqueda_lineal_play(2, lista2)
-
 
 
 

@@ -1,0 +1,8 @@
+1) Cargar eventos a las listas, bajar estas listas como txt, para tener una base de datos local.
+2) Se pueden eliminar objetos de la base de datos local
+3) Debe haber una opcion para reiniciar la base a los datos de la API.
+4) Una vez se llenen los asientos, se debe cerrar automaticamente la venta.
+
+
+Concluciones: 
+1, 2 y 3: Debo cargar los datos UNA (1) vez, y luego  el programa debe preguntar para borrar objetos de la base local, y para reiniciar.

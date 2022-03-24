@@ -6,9 +6,9 @@ import json
 
 def cargar_datos(txt, db):
     with open(txt) as dbe:
-        db = dbe.readlines()
-    return db
-
+        data = dbe.readlines()
+    return data
+    
 #Subir datos:
 
 def write(txt, datos):
