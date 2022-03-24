@@ -1,9 +1,10 @@
 class Event():
-    def __init__(self, title, poster, layout, ticket, date, opened):
+    def __init__(self, title, poster, layout_general, layout_vip, ticket, date, opened):
         self.title = title
         self.poster = poster
         self.date = date
-        self.layout = layout
+        self.layout_general = layout_general
+        self.layout_vip = layout_vip
         self.ticket = ticket
         self.opened = opened #Pasar este atributo a False una vez que se llenen todos los puestos
     
@@ -29,8 +30,13 @@ class Event():
     
     def show_layout(self):
         print(f'''\n------------------ Puestos ------------------\n''')
-        for i in self.layout: #IMPRIME LA PARTE VIP TODO VIP
+        print('''\n------------------ General ------------------\n''')
+        for i in self.layout_general: 
             print(i)
+        print('''\n------------------ VIP ------------------\n''')
+        for i in self.layout_vip: 
+            print(i)
+        
     
     def open_close(self, msg):
         if msg == 'Abrir venta':
@@ -40,12 +46,12 @@ class Event():
 
 
 class Theater(Event):
-    def __init__(self, title, poster, layout, ticket, date, synopsis, opened):
-        Event.__init__(self, title, poster, layout, ticket, date, opened)
+    def __init__(self, title, poster, layout_general, layout_vip,  ticket, date, synopsis, opened):
+        Event.__init__(self, title, poster, layout_general, layout_vip,  ticket, date, opened)
         self.synopsis = synopsis
     
     def show_synopsis(self):
-        print(f'''\n------------------ Sinpsis ------------------ 
+        print(f'''\n------------------ Sinopsis ------------------ 
         \n{self.synopsis}''')
     
     def show_whole_play(self):
@@ -59,8 +65,8 @@ class Theater(Event):
 
     
 class Music(Event):
-    def __init__(self, title, poster, layout, ticket, date, q_band, opened):
-        Event.__init__(self, title, poster, layout, ticket, date, opened)
+    def __init__(self, title, poster, layout_general, layout_vip,  ticket, date, q_band, opened):
+        Event.__init__(self, title, poster, layout_general, layout_vip,  ticket, date, opened)
         
         self.q_band = q_band
     

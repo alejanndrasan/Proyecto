@@ -7,3 +7,6 @@
 
 Concluciones: 
 1, 2 y 3: Debo cargar los datos UNA (1) vez, y luego  el programa debe preguntar para borrar objetos de la base local, y para reiniciar.
+
+NOTAS IMPORTANTES A LA HORA DE USAR FUNCIONES:
+* NO IMPRIMIR CUANDO LOS METODOS DENTRO DE LA FUNCION YA LO HACEN ===> BUSQUEDA LINEAL EN MODULO 1

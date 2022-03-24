@@ -15,10 +15,9 @@ def fix_layout(layout): #Esta funcion organiza la matriz del layout (general y V
 		a = matriz[j]
 		for i in range(y):
 			a[i] = a[i]+str(i)
-	matriz=fix_layout_vip(layout,matriz)
 	return matriz
 
-def fix_layout_vip(layout,matriz): #Esta funcion organiza los puestos de la zona VIP.
+def fix_layout_vip(layout): #Esta funcion organiza los puestos de la zona VIP.
 	x = layout['vip'][0]
 	y = layout['vip'][1]
 	matrix = ['V'] * x
@@ -28,22 +27,19 @@ def fix_layout_vip(layout,matriz): #Esta funcion organiza los puestos de la zona
 		a = matrix[j]
 		for i in range(y):
 			a[i] = a[i]+str(i)
-
 	return matrix
-
-
 
 def objectify_data_concerts(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo Musica.
 	for event in range(len(db["events"])):         
 		if db["events"][event]["type"] == 1:
-			concert_n = Music(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["bands"], True)
+			concert_n = Music(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), fix_layout_vip(db["events"][event]["layout"]),  db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["bands"], True)
 			lista.append(concert_n)
 	return lista
 
 def objectify_data_plays(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo Teatro.
 	for event in range(len(db["events"])):         
 		if db["events"][event]["type"] == 2:
-			play_n = Theater(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["synopsis"], True)
+			play_n = Theater(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), fix_layout_vip(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["synopsis"], True)
 			lista.append(play_n)
 	return lista
 
@@ -69,25 +65,50 @@ def buscar_evento():
 def busqueda_lineal_play(filtro, lista):	
 	if filtro == 1:
 		titulo = val_str('\nIngrese el nombre del evento que desea buscar: ')
+		print(f'Titulo que ingreso: {titulo}')
 		for i in range(len(lista)):
 			if lista[i].title == titulo:
 				lista[i].show_whole_play() 
 				break
 			elif lista[i].title != titulo:
-				print('Evento no encontrado')
+				print('Evento no encontrado\n')
 	elif filtro == 2:
 		artista = val_names('\nIngrese el nombre del artista que desea buscar: ')
 		index=-1
+		print(f'Artista que ingreso: {artista}')
 		for i in range(len(lista)):
 			for j in range(len(lista[i].poster)):
 				if lista[i].poster[j] == artista:
 					index=i
 		if index==-1:
-			print("Evento no encontrado")
+			print("Evento no encontrado\n")
+		else:
+			lista[index].show_whole_play()
+	elif filtro == 3:
+		index=-1
+		dia = val_int('\nIngresa el dia del evento que deseas buscar: ', 32)
+		dia = str(dia)
+		if len(dia) == 1:
+			dia = '0'+dia
+		mes = val_int('\nIngresa el mes del evento que deseas buscar (en numero): ', 12)
+		mes = str(mes)
+		if len(mes) == 1:
+			mes = '0'+mes
+		fecha = '2022-'+mes+'-'+dia
+		print(f'Fecha que ingreso: {fecha}')
+		for i in range(len(lista)):
+			if lista[i].date == fecha:
+				index = i
+		if index==-1:
+			print("Evento no encontrado\n")
 		else:
 			lista[index].show_whole_play()
 
-busqueda_lineal_play(2, lista2)
+		
+busqueda_lineal_play(3, lista2)
+
+
+
 
 
 
