@@ -19,7 +19,7 @@ def write(txt, datos):
 
 #Cargar JSON:
 
-def _json():
+def get_json():
     link = 'https://raw.githubusercontent.com/Algoritmos-y-Programacion/api_saman_show/main/api.json'
     answer = requests.get(link)
 
@@ -27,5 +27,34 @@ def _json():
         db = answer.json()
         return db 
 
+#validaciones:
 
+def val_str(msg1):
+    while True:
+        string = input(msg1)
+        if string.replace(" ", "").isalpha():
+            string = string.capitalize()
+            return string
+            break
+        else:
+            print('Ingrese una opcion valida')
 
+def val_int(msg1, n):
+    while True:
+        num = input(msg1)
+        if num.replace(" ", "").isnumeric() and 1<=int(num)<n:
+            num = int(num)
+            return num
+            break
+        else:
+            print('Ingrese una opcion valida.')
+
+def val_names(msg1):
+    while True:
+        string = input(msg1)
+        if string.replace(" ", "").isalpha():
+            string = string.title()
+            return string
+            break
+        else:
+            print('Ingrese una opcion valida')

@@ -1,97 +1,10 @@
 from Event import *
-diccionario = {
-            'eventos': [
-            {
-                "title": "Saman Fest",
-                "type": 1,
-                "bands": 4,
-                "cartel": [
-                    "Los Cocineros",
-                    "Ramayana",
-                    "CacetVersus",
-                    "La vida Hippie"
-                ],
-                "layout": {
-                    "general": [
-                        4,
-                        10
-                    ],
-                    "vip": [
-                        1,
-                        10
-                    ]
-                },
-                "prices": [50, 100],
-                "date": "2022-04-01"
-		    },
-            {
-			"title": "El famtasma del paraninfo",
-			"synopsis": "En esencia, la trama de El Fantasma del Paraninfo es una historia que combina romance, música, terror, misterio y tragedia. Trata de Eric, un hombre misterioso, un genio musical, que se enamora perdidamente de Cristina, una joven y talentosa artista, a quien inspira musicalmente",
-			"type": 2,
-			"cartel": [
-				"Leonardo DeCapo",
-				"Cendella",
-				"Ed Ramiro"
-			],
-			"layout": {
-				"general": [
-					5,
-					10
-				],
-				"vip": [
-					4,
-					3
-				]
-			},
-			"prices": [5, 10],
-			"date": "2022-05-10"
-		},
-        {
-			"title": "KenaAna & Guako",
-			"type": 1,
-			"bands": 2,
-			"cartel": [
-				"Guako",
-				"kenaAna"
-			],
-			"layout": {
-				"general": [
-					4,
-					10
-				],
-				"vip": [
-					1,
-					6
-				]
-			},
-			"prices": [30, 50],
-			"date": "2022-04-01"
-		},
-        {
-			"title": "Romeo & Julieta",
-			"synopsis": "En Verona, dos jóvenes enamorados, de dos familias enemigas, son víctimas de una situación de odio y violencia que ni desean ni pueden remediar. En una de esas tardes de verano en que el calor «inflama la sangre», Romeo, recién casado en secreto con su amada Julieta, mata al primo de ésta",
-			"type": 2,
-			"cartel": [
-				"Romeo Gonzalez",
-				"Julieta Hernandez"
-			],
-			"layout": {
-				"general": [
-					1,
-					5
-				],
-				"vip": [
-					1,
-					5
-				]
-			},
-			"prices": [10, 25],
-			"date": "2022-12-31"
-		}
-        ]
-    }
+from tools import*
 
-def fix_layout_general(layout): #Cuando se imprima es que se imprimira como matriz.
+db = get_json()
+
+
+def fix_layout(layout): #Esta funcion organiza la matriz del layout (general y VIP), con los datos de cada objeto.
 	x = layout['general'][0]
 	y = layout['general'][1]
 	abcdf = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -102,61 +15,108 @@ def fix_layout_general(layout): #Cuando se imprima es que se imprimira como matr
 		a = matriz[j]
 		for i in range(y):
 			a[i] = a[i]+str(i)
+	matriz_final = matriz.append(fix_layout_vip(layout))
 	return matriz
 
-def fix_layout_vip(layout):
+def fix_layout_vip(layout): #Esta funcion organiza los puestos de la zona VIP.
 	x = layout['vip'][0]
 	y = layout['vip'][1]
-	matriz = ['V'] * x
+	matrix = ['V'] * x
 	for i in range (x):
-		matriz[i] = ['V'] * y
+		matrix[i] = ['V'] * y
 	for j in range(x):
-		a = matriz[j]
+		a = matrix[j]
 		for i in range(y):
 			a[i] = a[i]+str(i)
-	return matriz
+	return matrix
 
-#Las siguientes funciones son para volver los datos dentro de la base de datos en listas de objetos:
+def objectify_data_concerts(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo Musica.
+	for event in range(len(db["events"])):         
+		if db["events"][event]["type"] == 1:
+			concert_n = Music(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["bands"], True)
+			lista.append(concert_n)
+	return lista
 
-def objectify_data_concerts(dicc, lista): #tengo que cargar los valores en una db (dicc=db) y hacer una lista al inicio del programa que me cargue los objetos
-    for key, value in dicc.items():
-        for i in range(0, (len(dicc[key]))): 
-            if value[i]['type']==1:       
-                concert_n = Music(value[i]['title'], value[i]['cartel'], value[i]['layout'], value[i]['prices'], value[i]['date'], value[i]['bands'])
-                lista.append(concert_n)
-    return lista
+def objectify_data_plays(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo Teatro.
+	for event in range(len(db["events"])):         
+		if db["events"][event]["type"] == 2:
+			play_n = Theater(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["synopsis"], True)
+			lista.append(play_n)
+	return lista
 
-def objectify_data_plays(dicc, lista): #tengo que cargar los valores en una db (dicc=db) y hacer una lista al inicio del programa que me cargue los objetos
-    for key, value in dicc.items():
-        for i in range(0, (len(dicc[key]))): 
-            if value[i]['type']==2:
-                play_n = Theater(value[i]['title'], value[i]['cartel'], value[i]['layout'], value[i]['prices'], value[i]['date'], value[i]['synopsis'])
-                lista.append(play_n)
-    return lista
+#Esto debo hacerlo en el main, esta aca mientras.
+lista1 = objectify_data_concerts(db, [])
+lista2 = objectify_data_plays(db, [])
 
+def buscar_evento():
+	tipo = val_int('\nIngrese el tipo de evento que busca: \n1.Tipo musical. \n2.Tipo teatral. \n==> ', 3)
+	filtros = []
+	while True:
+		filtro = val_int('''\nIngrese el filtro por los que desea buscarlo:
+		1. Titulo
+		2. Artista o banda.
+		3. Fecha.
+		==> ''', 4)
+		filtros.append(filtro)
+		otro = val_int('\nIngrese 1 para agregar otro filtro, 2 para finaliza: ', 3)
+		if otro == 1:
+			continue
+		else:
+			break
 
-lista1 = objectify_data_concerts(diccionario, [])
-lista2 = objectify_data_plays(diccionario, [])
+def busqueda_lineal_play(filtro, lista):	
+	if filtro == 1:
+		while True:
+			titulo = val_str('\nIngrese el nombre del evento que desea buscar: ')
+			for i in lista:
+				print(i.title)
+				if titulo == i.title:
+					print(i.show_whole_play()) #Me esta imprimiendo unas cosas extra
+					break
+				else:
+					otro = val_int('\nEvento no encontrado, para volver a buscar, ingrese 1, para salir ingrese 1: ', 3)
+					if otro == 1:
+						continue
+					else:
+						break
+	elif filtro == 2:
+		while True:
+			artista = val_names('\nIngrese el nombre del artista que desea buscar: ')
+			for i in lista:
+				print(i.poster)
+				for j in i.poster:
+					if artista == j:
+						print(i.show_whole_play())
+						break
+					'''else:
+						otro = val_int('\nEvento no encontrado, para volver a buscar, ingrese 1, para salir ingrese 1: ', 3)
+						if otro == 1:
+							continue
+						else:
+							break'''
+	'''elif filtro == 3:
+		while True:
+			mes = val_int('\nIngrese el mes del evento que desea buscar: ')
+			for i in lista:
+				for j in i.date.split('-'):
+					if mes == j[1]:
+						print(i.show_whole_play())
+					else:
+						otro = val_int('\nEvento no encontrado, para volver a buscar, ingrese 1, para salir ingrese 1: ', 3)
+						if otro == 1:
+							continue
+						else:
+							break'''
 
-
+busqueda_lineal_play(2, lista2)
 
 
 
 
 
 	
-	
-	
 
 
-#funciones para alterar los datos de los objetos:
-
-
-
-
-
-
-            
 
 
 
