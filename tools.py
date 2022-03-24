@@ -52,7 +52,7 @@ def val_int(msg1, n):
 def val_names(msg1):
     while True:
         string = input(msg1)
-        if string.replace(" ", "").isalpha():
+        if string.replace(" ", "").replace('&', '').isalpha():
             string = string.title()
             return string
             break
