@@ -2,6 +2,7 @@
 2) Se pueden eliminar objetos de la base de datos local
 3) Debe haber una opcion para reiniciar la base a los datos de la API.
 4) Una vez se llenen los asientos, se debe cerrar automaticamente la venta.
+5) Agregar atributos layout_general y layout_vip.
 
 
 Concluciones: 
