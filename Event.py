@@ -1,65 +1,49 @@
 class Event():
-    def __init__(self, title, poster, layout, price, date):
-        self.__title = title
-        self.__poster = poster
-        self.__date = date
-        self.__layout = layout
-        self.__price = price
+    def __init__(self, title, poster, layout, ticket, date):
+        self.title = title
+        self.poster = poster
+        self.date = date
+        self.layout = layout
+        self.ticket = ticket
     
-    #Getters:    
-    def get_title(self):
-        return self.__title
+    def show_title(self):
+        print(f'''\nTitulo de Evento: {self.title}''')
     
-    def get_poster(self):
-        return self.__poster
+    def show_poster(self):
+        cont = 0
+        print('\n')
+        for i in self.poster:
+            cont+=1
+            print(f'{cont}. {i}')
     
-    def get_date(self):
-        return self.__date
+    def show_date(self):
+        print(f'\nFecha: {self.date}')
     
-    def get_layout(self):
-        return self.__layout
+    def show_tickets(self):
+        print(f'''
+        \nSala General: {self.ticket[0]}
+        Sala VIP: {self.ticket[0]}''')
     
-    def get_price(self):
-        return self.__price
-
-    #Setters:
+    def show_layout(self):
+        pass
     
-    def set_title(self, new_name):
-        self.__title = new_name
     
-    def set_poster(self, new_poster):
-        self.__poster = new_poster
-    
-    def set_date(self, new_date):
-        self.__date = new_date
-    
-    def set_price(self, new_price):
-        self.__price = new_price
     
 
 class Theater(Event):
     def __init__(self, title, poster, layout, price, date, synopsis):
         Event.__init__(self, title, poster, layout, price, date,)
-        self.__synopsis = synopsis
+        self.synopsis = synopsis
     
-    def get_synopsis(self):
-        return self.__synopsis
-    def set_synopsis(self, new_synopsis):
-        self.__synopsis = new_synopsis
+    
     
 
 class Music(Event):
     def __init__(self, title, poster, layout, price, date, q_band):
         Event.__init__(self, title, poster, layout, price, date,)
-        self.__q_band = q_band
+        self.q_band = q_band
     
-    #Getters:
-    def get_q_band(self):
-        return self.__q_band
-
-    #Setters:
-    def set_q_band(self, new_q):
-        self.__q_band = new_q
+    
     
 
 

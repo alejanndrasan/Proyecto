@@ -105,24 +105,47 @@ def objectify_data_plays(dicc, lista): #tengo que cargar los valores en una db (
     for key, value in dicc.items():
         for i in range(0, (len(dicc[key]))): 
             if value[i]['type']==2:
-
-                play_n = Theater(value[i]['title'], value[i]['cartel'], value[i]['layout'], value[i]['prices'], value[i]['date'], value[i]['sinopsis'])
+                play_n = Theater(value[i]['title'], value[i]['cartel'], value[i]['layout'], value[i]['prices'], value[i]['date'], value[i]['synopsis'])
                 lista.append(play_n)
     return lista
 
 
+lista1 = objectify_data_concerts(diccionario, [])
+lista2 = objectify_data_plays(diccionario, [])
+
+
+
+def fix_layout(layout): #Cuando se imprima es que se imprimira como matriz.
+	x = layout['general'][0]
+	y = layout['general'][1]
+	abcdf = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	matriz = ['A'] * x
+	for i in range (x):
+		matriz[i] = [f'{abcdf[i]}'] * y
+	for j in range(x):
+		a = matriz[j]
+		for i in range(y):
+			a[i] = a[i]+str(i)
+	return matriz
+
+def fix_layout2(layout):
+	x = layout['vip'][0]
+	y = layout['vip'][1]
+	abcdf = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	matriz = ['A'] * x
+	for i in range (x):
+		matriz[i] = [f'{abcdf[i]}'] * y
+	return matriz
+
+
+print(fix_layout(lista1[0].layout))
+	
+	
+	
 
 
 #funciones para alterar los datos de los objetos:
 
-'''def matrix(x, y, m):
-    i = 0
-    matriz = [m] * x
-    for i in range (x):
-        matriz [i] = [m] * y
-    return matriz
-
-matriz = matrix(4,10,'G')'''
 
 
 
