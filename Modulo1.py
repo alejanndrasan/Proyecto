@@ -91,6 +91,31 @@ diccionario = {
         ]
     }
 
+def fix_layout_general(layout): #Cuando se imprima es que se imprimira como matriz.
+	x = layout['general'][0]
+	y = layout['general'][1]
+	abcdf = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	matriz = ['A'] * x
+	for i in range (x):
+		matriz[i] = [f'{abcdf[i]}'] * y
+	for j in range(x):
+		a = matriz[j]
+		for i in range(y):
+			a[i] = a[i]+str(i)
+	return matriz
+
+def fix_layout_vip(layout):
+	x = layout['vip'][0]
+	y = layout['vip'][1]
+	matriz = ['V'] * x
+	for i in range (x):
+		matriz[i] = ['V'] * y
+	for j in range(x):
+		a = matriz[j]
+		for i in range(y):
+			a[i] = a[i]+str(i)
+	return matriz
+
 #Las siguientes funciones son para volver los datos dentro de la base de datos en listas de objetos:
 
 def objectify_data_concerts(dicc, lista): #tengo que cargar los valores en una db (dicc=db) y hacer una lista al inicio del programa que me cargue los objetos
@@ -115,30 +140,10 @@ lista2 = objectify_data_plays(diccionario, [])
 
 
 
-def fix_layout(layout): #Cuando se imprima es que se imprimira como matriz.
-	x = layout['general'][0]
-	y = layout['general'][1]
-	abcdf = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-	matriz = ['A'] * x
-	for i in range (x):
-		matriz[i] = [f'{abcdf[i]}'] * y
-	for j in range(x):
-		a = matriz[j]
-		for i in range(y):
-			a[i] = a[i]+str(i)
-	return matriz
-
-def fix_layout2(layout):
-	x = layout['vip'][0]
-	y = layout['vip'][1]
-	abcdf = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-	matriz = ['A'] * x
-	for i in range (x):
-		matriz[i] = [f'{abcdf[i]}'] * y
-	return matriz
 
 
-print(fix_layout(lista1[0].layout))
+
+
 	
 	
 	
