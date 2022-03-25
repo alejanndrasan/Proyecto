@@ -1,19 +1,23 @@
-
+import pickle
+import os
 import requests
 import json
 
 #Cargar datos:
 
-def cargar_datos(txt, db):
-    with open(txt) as dbe:
-        data = dbe.readlines()
-    return data
+def cargar_datos(txt):
+    file= open(txt,'rb')
+    if os.stat(txt).st_size != 0:
+        datos=pickle.load(file)
+    file.close()
+    return datos
     
 #Subir datos:
 
-def write(txt, datos):
-    with open(txt,"a+") as dbe:
-        dbe.write(datos)
+def subir_datos(txt, datos):
+    file=open(txt,"wb")
+    pickle.dump(datos, file)
+    file.close()
     
 
 

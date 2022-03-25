@@ -39,9 +39,9 @@ class Event():
         
     
     def open_close(self, msg):
-        if msg == 'Abrir venta':
-            self.opened=True
-        elif msg == 'Cerrar venta':
+        if msg == 1:
+            self.opened = True
+        elif msg == 2:
             self.opened = False
 
 
@@ -54,7 +54,15 @@ class Theater(Event):
         print(f'''\n------------------ Sinopsis ------------------ 
         \n{self.synopsis}''')
     
-    def show_whole_play(self):
+    def show_play(self):
+        self.show_title()
+        self.show_synopsis()
+        self.show_poster()
+        self.show_date()
+        self.show_tickets()
+        self.show_layout()
+    
+    def show_play_for_sales(self):
         if self.opened == True:
             self.show_title()
             self.show_synopsis()
@@ -62,6 +70,8 @@ class Theater(Event):
             self.show_date()
             self.show_tickets()
             self.show_layout()
+        else:
+            print('\nLa venta de este evento esta cerrada.')       
 
     
 class Music(Event):
@@ -73,14 +83,24 @@ class Music(Event):
     def show_q_band(self):
         print(f'''\nNumero de bandas: {self.q_band}''')
 
-    def show_whole_concert(self):
-        if self.opened==True:
+    def show_concert(self):
+        self.show_title()
+        self.show_q_band()
+        self.show_poster()
+        self.show_date() 
+        self.show_tickets()
+        self.show_layout()
+    
+    def show_concert_for_sales(self):
+        if self.opened == True:
             self.show_title()
             self.show_q_band()
             self.show_poster()
             self.show_date() 
             self.show_tickets()
             self.show_layout()
+        else:
+            print('\nLa venta de este evento esta cerrada.')    
         
     
     

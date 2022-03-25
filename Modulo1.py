@@ -1,8 +1,6 @@
 from Event import *
 from tools import*
 
-db = get_json()
-
 
 def fix_layout(layout): #Esta funcion organiza la matriz del layout (general y VIP), con los datos de cada objeto.
 	x = layout['general'][0]
@@ -43,37 +41,39 @@ def objectify_data_plays(db, lista): #Esta funcion transforma los datos de la AP
 			lista.append(play_n)
 	return lista
 
-#Esto debo hacerlo SOLO 1 VEZ, y cuando se quiera reiniciar, esta aca mientras.
-lista1 = objectify_data_concerts(db, [])
-lista2 = objectify_data_plays(db, []) #1, 2 y 3 de notas.
-
-
-def buscar_evento(lista1, lista2):
-	tipo = val_int('\nIngrese el tipo de evento que busca: \n1.Tipo musical. \n2.Tipo teatral. \n==> ', 3)
+def buscar_concierto(lista): #Esta funcion sirve para buscar conciertos, retorna resultado.
 	filtro = val_int('''\nIngrese el filtro por el que desea buscarlo:
 	1. Titulo
 	2. Artista o banda.
 	3. Fecha.
 	==> ''', 4)
-	if tipo == 1:
-		busqueda_lineal_musical(filtro, lista1)
-	if tipo == 2:
-		busqueda_lineal_teatro(filtro, lista2)
+	resultado = busqueda_lineal_musical(filtro, lista)
+	return resultado
 
-def busqueda_lineal_teatro(filtro, lista):	
+def buscar_obra(lista): #Esta funcion sirve para buscar obras, retorna resultado.
+	filtro = val_int('''\nIngrese el filtro por el que desea buscarlo:
+	1. Titulo
+	2. Artista o banda.
+	3. Fecha.
+	==> ''', 4)
+	resultado = busqueda_lineal_teatro(filtro, lista)
+	return resultado
+
+
+def busqueda_lineal_teatro(filtro, lista): #Esta funcion auxilia la funcion anterior de busqueda. TEATRO
 	if filtro == 1:
-		titulo = val_str('\nIngrese el nombre del evento que desea buscar: ')
-		print(f'Titulo que ingreso: {titulo}')
+		index = -1
+		titulo = val_names('\nIngrese el nombre del evento que desea buscar: ')
 		for i in range(len(lista)):
-			if lista[i].title == titulo:
-				lista[i].show_whole_play() 
-				break
-			elif lista[i].title != titulo:
-				print('Evento no encontrado\n')
+			if lista[i].title.title() == titulo:
+				index=i
+		if index==-1:
+			print("Evento no encontrado\n")
+		else:
+			return lista[index]
 	elif filtro == 2:
 		artista = val_names('\nIngrese el nombre del artista que desea buscar: ')
 		index=-1
-		print(f'Artista que ingreso: {artista}')
 		for i in range(len(lista)):
 			for j in range(len(lista[i].poster)):
 				if lista[i].poster[j] == artista:
@@ -81,7 +81,7 @@ def busqueda_lineal_teatro(filtro, lista):
 		if index==-1:
 			print("Evento no encontrado\n")
 		else:
-			lista[index].show_whole_play()
+			return lista[index]
 	elif filtro == 3:
 		index=-1
 		dia = val_int('\nIngresa el dia del evento que deseas buscar: ', 32)
@@ -100,24 +100,22 @@ def busqueda_lineal_teatro(filtro, lista):
 		if index==-1:
 			print("Evento no encontrado\n")
 		else:
-			lista[index].show_whole_play()
+			return lista[index]
 
-def busqueda_lineal_musical(filtro, lista):	
+def busqueda_lineal_musical(filtro, lista):	#Esta funcion auxilia la funcion anterior de busqueda. MUSICA
 	if filtro == 1:
-		index=-1
-		titulo = val_str('\nIngrese el nombre del evento que desea buscar: ')
-		print(f'\nTitulo que ingreso: {titulo}\n')
+		index = - 1
+		titulo = val_names('\nIngrese el nombre del evento que desea buscar: ')
 		for i in range(len(lista)):
-			if lista[i].title == titulo:
+			if lista[i].title.title() == titulo:
 				index=i
 		if index==-1:
 			print("Evento no encontrado\n")
 		else:
-			lista[index].show_whole_concert()
+			return lista[index]
 	elif filtro == 2:
 		artista = val_names('\nIngrese el nombre de la banda que desea buscar: ')
 		index=-1
-		print(f'\nBanda que ingreso: {artista}\n')
 		for i in range(len(lista)):
 			for j in range(len(lista[i].poster)):
 				if lista[i].poster[j] == artista:
@@ -125,7 +123,7 @@ def busqueda_lineal_musical(filtro, lista):
 		if index==-1:
 			print("Evento no encontrado\n")
 		else:
-			lista[index].show_whole_concert()
+			return lista[index]
 	elif filtro == 3:
 		index=-1
 		dia = val_int('\nIngresa el dia del evento que deseas buscar: ', 32)
@@ -144,12 +142,35 @@ def busqueda_lineal_musical(filtro, lista):
 		if index==-1:
 			print("Evento no encontrado\n")
 		else:
-			lista[index].show_whole_concert()
+			return lista[index]
 
+def abrir_cerrar(lista1, lista2): #Altera el estado de disponibilidad de los eventos.
+	tipo = val_int('\nIngrese el tipo de evento que busca: \n1.Tipo musical. \n2.Tipo teatral. \n==> ', 3)
+	if tipo == 1:
+		resultado = buscar_concierto(lista1)
+	if tipo == 2:
+		resultado = buscar_obra(lista2)
+	print(f'Evento seleccionado: {resultado.title}')
+	msg = val_int('1.Abrir venta de tickets. \n2.Cerrar venta de tickets. \n==> ', 3)
+	resultado.open_close(msg)
+	if resultado.opened == True:
+		print(f'Venta del evento {resultado.title} abierta')
+	else:
+		print(f'Venta del evento {resultado.title} cerrada')
 
-busqueda_lineal_musical(3, lista1)
+def ver_evento(lista1, lista2): #Esta funcion muestra los eventos en su forma default.
+	print('\n ------------------------------------------------------------- Eventos musicales -------------------------------------------------------------\n')
+	for i in lista1:
+		i.show_concert()
+		print('\n******************************************************************************************************************************************\n')
+	print('\n ------------------------------------------------------------- Eventos teatrales -------------------------------------------------------------\n')
+	for i in lista2:
+		i.show_play()
+		print('\n******************************************************************************************************************************************\n')
 
-
+def subir_cambios(lista1, lista2): #Esta funcion actualiza lis archivos de texto despues de cambiar datos de los eventos
+	subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt', lista1)
+	subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt', lista2)
 
 
 
