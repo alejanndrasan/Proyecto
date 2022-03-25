@@ -18,6 +18,8 @@ def main():
         3. Buscar evento.
         4. Salir
         ==> ''', 5)
+
+        #MODULO 1:
         if menu == 1:
             ver_evento(conciertos, obras_teatro)
         if menu == 2:
