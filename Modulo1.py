@@ -18,9 +18,10 @@ def fix_layout(layout): #Esta funcion organiza la matriz del layout (general y V
 def fix_layout_vip(layout): #Esta funcion organiza los puestos de la zona VIP.
 	x = layout['vip'][0]
 	y = layout['vip'][1]
+	abcdf = ['AV', 'BV', 'CV', 'DV', 'EV', 'FV', 'GV', 'HV', 'IV', 'JV', 'KV', 'LV', 'MV', 'NV', 'OV', 'PV', 'QV', 'RV', 'SV', 'TV', 'UV', 'VV', 'WV', 'XV', 'YV', 'ZV']
 	matrix = ['V'] * x
 	for i in range (x):
-		matrix[i] = ['V'] * y
+		matrix[i] = [f'{abcdf[i]}'] * y
 	for j in range(x):
 		a = matrix[j]
 		for i in range(y):
@@ -137,13 +138,12 @@ db = get_json()
 '''En estos comentarios subi la info inicial de la API a los archivos de texto, esto no se vuelve hacer, sino en la funcion de resetear la info.'''
 #conciertos = objectify_data_concerts(db, [])
 #obras_teatro = objectify_data_plays(db, [])
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt', conciertos)
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt', obras_teatro)
+#subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Conciertos_DB.txt', conciertos)
+#subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Obras_Teatro_DB.txt', obras_teatro)
 
 
 
 
-	
 
 
 

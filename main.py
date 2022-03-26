@@ -1,6 +1,8 @@
+from msilib.schema import ODBCTranslator
 import emoji
 from tools import *
 from Modulo1 import *
+from Modulo2 import *
 
 db = get_json()
 
@@ -11,16 +13,20 @@ db = get_json()
 
 
 def main():
-    conciertos = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt')
-    obras_teatro = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt')
+    conciertos = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Conciertos_DB.txt')
+    obras_teatro = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Obras_Teatro_DB.txt')
+    clientes = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Clientes.txt')
+    facturas = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Facturas.txt')
     print(emoji.emojize('\n---------------------- Saman Show :deciduous_tree: ----------------------\n'))
     while True:
         menu = val_int('''\nBienvenido a Saman Show, seleccione que accion desea realizar:
         1. Ver eventos.
         2. Abrir o cerrar venta de tickets.
         3. Buscar evento.
-        4. Salir
-        ==> ''', 5)
+        4. Registrar cliente.
+        5. Registrar compra.
+        6. Salir
+        ==> ''', 7)
 
         #MODULO 1:
         if menu == 1:
@@ -36,7 +42,17 @@ def main():
             else:
                 resultado = buscar_evento(obras_teatro)
                 resultado.show_play()
+        
+        #MODULO 2:
         if menu == 4:
+            registrar_cliente(clientes)
+            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Clientes.txt', clientes)
+        if menu == 5:
+            registrar_compra(conciertos, obras_teatro, clientes, facturas)
+            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Clientes.txt', clientes)
+            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Facturas.txt', facturas)
+            subir_cambios(conciertos, obras_teatro)
+        if menu == 6:
             break
     print('bye bye!')
 

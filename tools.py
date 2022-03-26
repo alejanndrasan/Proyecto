@@ -8,9 +8,11 @@ import json
 def cargar_datos(txt):
     file= open(txt,'rb')
     if os.stat(txt).st_size != 0:
-        datos=pickle.load(file)
+        datos = pickle.load(file)
     file.close()
     return datos
+
+
     
 #Subir datos:
 

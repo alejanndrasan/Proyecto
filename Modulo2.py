@@ -5,8 +5,6 @@ from Event import *
 from Invoice import *
 import emoji
 
-conciertos = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt')
-obras_teatro = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt')
 
 def ver_evento_compras(lista1, lista2):
     print('\n ------------------------------------------------------------- Eventos musicales -------------------------------------------------------------\n')
@@ -33,7 +31,7 @@ def registrar_cliente(lista):
     if codigo == 2:
         print("\nCliente ya registrado")
 
-def registrar_compra(lista1, lista2, lista3):
+def registrar_compra(lista1, lista2, lista3, lista4):
     while True:
         cedula = val_int('\nIngrese su numero de cedula: ', 1000000000)
         codigo = verificar_registro(lista3, cedula) #Aqui verifica que el cliente ya esta registrado
@@ -115,7 +113,9 @@ def registrar_compra(lista1, lista2, lista3):
                 resultado.vip_seats = resultado.vip_seats - cantidad_asientos
 
             #Regitrar compra en el cliente: registra en la lista de compras del cliente la compra realizada.
-            cliente.purchase.append(Invoice(resultado.title, cantidad_asientos, cuenta, spots))
+            factura = Invoice(resultado.title, cantidad_asientos, cuenta, spots)
+            lista4.append(factura)
+            cliente.purchase.append(factura)
 
             #Factura:
             print(f'''\n************************************FACTURA*************************************
@@ -127,7 +127,6 @@ Total a pagar: {cuenta}''')
             break
         print(mensaje)
         
-
 def verificar_registro(lista, cedula):
     index = -1
     for i in range(len(lista)):
@@ -143,13 +142,6 @@ def get_cliente(lista, cedula):
         if lista[i].id == cedula:
             return lista[i]
 
-while True:
-    clientes = registrar_cliente([])
-    registrar_compra(conciertos, obras_teatro, clientes)
-    kkkk = input('1 salir, 2 seguir')
-    if kkkk==1:
-        break
-    else:
-        continue
+
 
     
