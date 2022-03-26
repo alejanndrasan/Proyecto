@@ -1,10 +1,13 @@
+from tools import *
+
 class Client:
-    def __init__(self, name, age, id, orden_compra):
+    def __init__(self, name, age, id, purchase):
         self.name= name
         self.age= age
         self.id = id
-        self.orden_compra = orden_compra
+        self.purchase = purchase
 
+    
     
     
     

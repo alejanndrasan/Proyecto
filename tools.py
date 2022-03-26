@@ -18,8 +18,6 @@ def subir_datos(txt, datos):
     file=open(txt,"wb")
     pickle.dump(datos, file)
     file.close()
-    
-
 
 #Cargar JSON:
 

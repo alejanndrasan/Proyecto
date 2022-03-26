@@ -1,3 +1,4 @@
+import emoji
 from tools import *
 from Modulo1 import *
 
@@ -7,10 +8,12 @@ db = get_json()
 #Obras_Teatro_DB.txt contiene todos los eventos del tipo teatro, bajados de la API
 #Los datos de los archivos de texto de los eventos puede ser alterada (se pueden eliminar eventos), y se vuelve a usar la API cuando se quiera reiniciar la data a su estado inicial.
 
+
+
 def main():
     conciertos = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt')
     obras_teatro = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt')
-    print('\n---------------------- Saman Show ----------------------\n')
+    print(emoji.emojize('\n---------------------- Saman Show :deciduous_tree: ----------------------\n'))
     while True:
         menu = val_int('''\nBienvenido a Saman Show, seleccione que acion desea realizar:
         1. Ver eventos.
