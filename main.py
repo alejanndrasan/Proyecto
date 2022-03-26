@@ -15,7 +15,7 @@ def main():
     obras_teatro = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt')
     print(emoji.emojize('\n---------------------- Saman Show :deciduous_tree: ----------------------\n'))
     while True:
-        menu = val_int('''\nBienvenido a Saman Show, seleccione que acion desea realizar:
+        menu = val_int('''\nBienvenido a Saman Show, seleccione que accion desea realizar:
         1. Ver eventos.
         2. Abrir o cerrar venta de tickets.
         3. Buscar evento.
@@ -31,10 +31,10 @@ def main():
         if menu == 3:
             tipo = val_int('\nIngrese el tipo de evento que busca: \n1.Tipo musical. \n2.Tipo teatral. \n==> ', 3)
             if tipo ==1:
-                resultado = buscar_concierto(conciertos)
+                resultado = buscar_evento(conciertos)
                 resultado.show_concert()
             else:
-                resultado = buscar_obra(obras_teatro)
+                resultado = buscar_evento(obras_teatro)
                 resultado.show_play()
         if menu == 4:
             break

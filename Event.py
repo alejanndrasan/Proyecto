@@ -42,7 +42,7 @@ Nota: los puestos con la plantita se encuentran ocupados.''')
 Nota: los puestos con la flor se encuentran ocupados.''')
         for i in self.layout_vip: 
             print(i)
-        print(f'''\n------------------ Escenario ------------------\n''')
+        print(f'''\n------------------ Escenario ------------------\n''') #ponerle emoji de pantalla
     
     def select_seats_general(self, spot):
         for i in range(len(self.layout_general)):
