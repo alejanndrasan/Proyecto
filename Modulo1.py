@@ -63,7 +63,7 @@ def buscar_evento(lista): #Esta funcion sirve para buscar conciertos, retorna re
 	resultado = busqueda_lineal(filtro, lista)
 	return resultado
 
-def busqueda_lineal(filtro, lista): #Esta funcion auxilia la funcion anterior de busqueda. TEATRO
+def busqueda_lineal(filtro, lista): #Esta funcion auxilia la funcion anterior de busqueda.
 	if filtro == 1:
 		index = -1
 		titulo = val_names('\nIngrese el nombre del evento que desea buscar: ')
@@ -76,24 +76,14 @@ def busqueda_lineal(filtro, lista): #Esta funcion auxilia la funcion anterior de
 		else:
 			return lista[index]
 	elif filtro == 2:
-		artista = val_names('\nIngrese el nombre del artista o banda que desea buscar: ')
-		index=-1
-		for i in range(len(lista)):
-			for j in range(len(lista[i].poster)):
-				if lista[i].poster[j] == artista:
-					index=i
-		if index==-1:
-			print("Evento no encontrado\n")
-			return 2
-		else:
-			return lista[index]
+		return 2
 	elif filtro == 3:
 		index=-1
 		dia = val_int('\nIngresa el dia del evento que deseas buscar: ', 32)
 		dia = str(dia)
 		if len(dia) == 1:
 			dia = '0'+dia
-		mes = val_int('\nIngresa el mes del evento que deseas buscar (en numero): ', 12)
+		mes = val_int('\nIngresa el mes del evento que deseas buscar (en numero): ', 13)
 		mes = str(mes)
 		if len(mes) == 1:
 			mes = '0'+mes

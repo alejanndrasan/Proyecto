@@ -48,8 +48,8 @@ def registrar_compra(lista1, lista2, lista3, lista4):
             tipo = val_int('\n1.Tipo musical. \n2.Tipo teatral. \n==> ', 3)
             print('\nAhora busque el evento que desea seleccionar: ') #Busca el objeto del evento para usarlo en toda la funcion.
             if tipo ==1:
-                resultado = buscar_evento(lista1)
                 while True:
+                    resultado = buscar_evento(lista1)
                     if resultado == 2:
                             otro = val_int('\nPara volver a intentarlo, ingrese 1, ingrese 2 para salir: ', 3)
                             if otro == 1:
@@ -64,8 +64,8 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                             otro = 2
                         break
             else:
-                resultado = buscar_evento(lista2)
                 while True:
+                    resultado = buscar_evento(lista2)
                     if resultado == 2:
                             otro = val_int('\nPara volver a intentarlo, ingrese 1, ingrese 2 para salir: ', 3)
                             if otro == 1:
