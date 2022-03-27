@@ -28,21 +28,28 @@ class Event():
         {self.date}''')
     
     def show_tickets(self):
-        print(f'''\n------------------ Tickets ------------------\n
-        Sala General: Bs. {self.ticket[0]}. 
-        Sala VIP: Bs. {self.ticket[1]}.''')
+        if self.opened == True:
+            print(f'''\n------------------ Tickets ------------------\n
+            Sala General: Bs. {self.ticket[0]}. 
+            Sala VIP: Bs. {self.ticket[1]}.''')
+        else: 
+            print('\nLa venta de este evento esta cerrada.') 
     
     def show_layout(self):
-        print(f'''\n------------------ Puestos ------------------\n''')
-        print('''\n------------------ General ------------------\n
-Nota: los puestos con la plantita se encuentran ocupados.''')
-        for i in self.layout_general: 
-            print(i)
-        print('''\n------------------ VIP ------------------\n
-Nota: los puestos con la flor se encuentran ocupados.''')
-        for i in self.layout_vip: 
-            print(i)
-        print(f'''\n------------------ Escenario ------------------\n''') #ponerle emoji de pantalla
+        if self.opened == True:
+            print(f'''\n------------------ Puestos ------------------\n''')
+            print('''\n------------------ General ------------------\n
+    Nota: los puestos con la plantita se encuentran ocupados.''')
+            for i in self.layout_general: 
+                print(i)
+            print('''\n------------------ VIP ------------------\n
+    Nota: los puestos con la flor se encuentran ocupados.''')
+            for i in self.layout_vip: 
+                print(i)
+            print(f'''\n------------------ Escenario ------------------\n''') #ponerle emoji de pantalla
+        else: 
+            return 1
+    
     
     def select_seats_general(self, spot):
         for i in range(len(self.layout_general)):

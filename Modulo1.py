@@ -72,6 +72,7 @@ def busqueda_lineal(filtro, lista): #Esta funcion auxilia la funcion anterior de
 				index=i
 		if index==-1:
 			print("Evento no encontrado\n")
+			return 2
 		else:
 			return lista[index]
 	elif filtro == 2:
@@ -83,6 +84,7 @@ def busqueda_lineal(filtro, lista): #Esta funcion auxilia la funcion anterior de
 					index=i
 		if index==-1:
 			print("Evento no encontrado\n")
+			return 2
 		else:
 			return lista[index]
 	elif filtro == 3:
@@ -102,6 +104,7 @@ def busqueda_lineal(filtro, lista): #Esta funcion auxilia la funcion anterior de
 				index = i
 		if index==-1:
 			print("Evento no encontrado\n")
+			return 2
 		else:
 			return lista[index]
 
@@ -138,8 +141,8 @@ db = get_json()
 '''En estos comentarios subi la info inicial de la API a los archivos de texto, esto no se vuelve hacer, sino en la funcion de resetear la info.'''
 #conciertos = objectify_data_concerts(db, [])
 #obras_teatro = objectify_data_plays(db, [])
-#subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Conciertos_DB.txt', conciertos)
-#subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Obras_Teatro_DB.txt', obras_teatro)
+#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt', conciertos)
+#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt', obras_teatro)
 
 
 

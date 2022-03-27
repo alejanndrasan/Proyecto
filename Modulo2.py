@@ -36,8 +36,11 @@ def registrar_compra(lista1, lista2, lista3, lista4):
         cedula = val_int('\nIngrese su numero de cedula: ', 1000000000)
         codigo = verificar_registro(lista3, cedula) #Aqui verifica que el cliente ya esta registrado
         if codigo == 1:
-            print('\nCliente no registrado, registrelo primero.')
-            registrar_cliente(lista3) #Si no esta registrado, te lleva a la funcion registrar para que lo registres.
+            registrar = val_int('\nCliente no registrado, para registrarlo ingrese 1, para salir ingrese 2: ', 3)
+            if registrar == 1:
+                registrar_cliente(lista3) #Si no esta registrado, te lleva a la funcion registrar para que lo registres.
+            else:
+                break
         else:
             cliente = get_cliente(lista3, cedula) #Esta funcion busca el cliente y devuelve el objeto, para poder usarlo mas adelante
             ver_evento_compras(lista1, lista2) 
@@ -46,12 +49,39 @@ def registrar_compra(lista1, lista2, lista3, lista4):
             print('\nAhora busque el evento que desea seleccionar: ') #Busca el objeto del evento para usarlo en toda la funcion.
             if tipo ==1:
                 resultado = buscar_evento(lista1)
-                resultado.show_tickets()
-                resultado.show_layout()
+                while True:
+                    if resultado == 2:
+                            otro = val_int('\nPara volver a intentarlo, ingrese 1, ingrese 2 para salir: ', 3)
+                            if otro == 1:
+                                continue
+                            else:
+                                break
+                    else:
+                        otro = 3
+                        resultado.show_tickets()
+                        respuesta = resultado.show_layout()
+                        if respuesta == 1:
+                            otro = 2
+                        break
             else:
                 resultado = buscar_evento(lista2)
-                resultado.show_tickets()
-                resultado.show_layout()
+                while True:
+                    if resultado == 2:
+                            otro = val_int('\nPara volver a intentarlo, ingrese 1, ingrese 2 para salir: ', 3)
+                            if otro == 1:
+                                continue
+                            else:
+                                break
+                    else:
+                        otro = 3
+                        resultado.show_tickets()
+                        respuesta = resultado.show_layout()
+                        if respuesta == 1:
+                            otro = 2
+                        break
+            
+            if otro == 2:
+                break
 
             #Cantidad de puestos y puestos:
             seccion = val_int('''\nSeleccione en que seccion quiere sentarse:
@@ -65,7 +95,6 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                     while True:
                         spot = input('Ingrese el asiento que desea: ') #hacer lo que dice Emily para validar.
                         if spot != emoji.emojize(':seedling:'):
-                            resultado.select_seats_general(spot)
                             print("\nAsiento seleccionado con exito.")
                             spots.append(spot)
                             break
@@ -79,8 +108,11 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 print(f'\nPuestos: {spots}. \nTotal a pagar: {cuenta}') #Imprime lo que se pagaria, y pregunta si deseas continuar, si no, no se genera la factura, ni se altera el atributo purchase del cliente.
                 pagar = val_int('\nDesea proceder con su compra: \n1.Si. \n2.No. \n==> ', 3)
                 if pagar == 2:
-                    mensaje = 'Hasta luego!'
+                    print('Hasta luego!')
                     break
+                else:
+                    resultado.select_seats_general(spot) #Se marca en la base de datos que el asiento esta ocupado
+
 
             #VIP: se realiza lo mismo que en la seccion anterior, pero casteando los atributos _vip.
             if seccion == 2:
@@ -90,7 +122,6 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                     while True:
                         spot = input('Ingrese el asiento que desea: ') #hacer lo que Emily dice para validar
                         if spot != emoji.emojize(':blossom:'):
-                            resultado.select_seats_vip(spot)
                             print("\nAsiento seleccionado con exito.")
                             spots.append(spot)
                             break
@@ -103,8 +134,11 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 print(f'\nPuestos: {spots}. \nTotal a pagar: {cuenta}')
                 pagar = val_int('\nDesea proceder con su compra: \n1.Si. \n2.No. \n==> ', 3)
                 if pagar == 2:
-                    mensaje = 'Hasta luego!'
+                    print('Hasta luego!')
                     break
+                else:
+                    resultado.select_seats_vip(spot) #Se marca en la base de datos que el asiento esta ocupado
+
             
             #Se le resta los asientos comprados al atributo de cantidad de asientos del evento seleccionado.
             if seccion == 1:
@@ -113,7 +147,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 resultado.vip_seats = resultado.vip_seats - cantidad_asientos
 
             #Regitrar compra en el cliente: registra en la lista de compras del cliente la compra realizada.
-            factura = Invoice(resultado.title, cantidad_asientos, cuenta, spots)
+            factura = Invoice(resultado.title, cantidad_asientos, cuenta, spots, None)
             lista4.append(factura)
             cliente.purchase.append(factura)
 
@@ -123,9 +157,7 @@ Nombre del cliente: {cliente.name}.
 C.I: {cliente.id}.
 Puestos: {spots}.
 Total a pagar: {cuenta}''')
-            mensaje = "\nCompra exitosa, hasta luego!" #Mensajes no estan funcionando
             break
-        print(mensaje)
         
 def verificar_registro(lista, cedula):
     index = -1
