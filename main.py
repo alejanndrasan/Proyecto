@@ -44,6 +44,10 @@ def main():
         if menu == 3:
             tipo = val_int('\nIngrese el tipo de evento que busca: \n1.Tipo musical. \n2.Tipo teatral. \n==> ', 3)
             if tipo ==1:
+                print('\n ------------------------------------------------------------- Eventos musicales -------------------------------------------------------------\n')
+                for i in conciertos:
+                    i.show_concert()
+                    print('\n******************************************************************************************************************************************\n')
                 while True:
                     resultado = buscar_evento(conciertos)
                     if resultado == 2:
@@ -56,6 +60,10 @@ def main():
                         resultado.show_concert()
                         break
             else:
+                print('\n ------------------------------------------------------------- Eventos teatrales -------------------------------------------------------------\n')
+                for i in obras_teatro:
+                    i.show_play()
+                    print('\n******************************************************************************************************************************************\n')
                 resultado = buscar_evento(obras_teatro)
                 while True:
                     if resultado == 2:
@@ -67,6 +75,7 @@ def main():
                     else:
                         resultado.show_play()
                         break
+        
         #MODULO 2:
         if menu == 4:
             registrar_cliente(clientes)

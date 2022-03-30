@@ -88,18 +88,24 @@ def registrar_compra(lista1, lista2, lista3, lista4):
             1. General.
             2. VIP.
             ==> ''', 3)
+
             if seccion == 1:
                 cantidad_asientos = val_int('\nIngrese la cantidad de asientos que desea comprar: ', (resultado.general_seats + 1)) 
                 spots = []
                 for n in range(cantidad_asientos): #Corre la cantidad de asientos insertada.
-                    while True:
+                    seleccionado = False
+                    while seleccionado == False:
                         spot = input('Ingrese el asiento que desea: ') #hacer lo que dice Emily para validar.
-                        if spot != emoji.emojize(':seedling:'):
-                            print("\nAsiento seleccionado con exito.")
-                            spots.append(spot)
-                            break
-                        else:
-                            print('\nAsiento no disponible, intente otra vez.')
+                        for i in range(len(resultado.layout_general)):
+                            for j in range(len(resultado.layout_general[i])):
+                                if resultado.layout_general[i][j] == spot:
+                                    seleccionado = True
+                                    print('Asiento seleccionado con exito')
+                                    spots.append(spot)
+
+                        if seleccionado == False:
+                            print('\nAsiento no disponible, seleccione otro.')
+  
 
                 #Cuenta: 
                 tickets = cantidad_asientos * resultado.ticket[0]
@@ -118,15 +124,19 @@ def registrar_compra(lista1, lista2, lista3, lista4):
             if seccion == 2:
                 cantidad_asientos = val_int('\nIngrese la cantidad de asientos que desea comprar: ', (resultado.vip_seats + 1))
                 spots = []
-                for n in range(cantidad_asientos):
-                    while True:
-                        spot = input('Ingrese el asiento que desea: ') #hacer lo que Emily dice para validar
-                        if spot != emoji.emojize(':blossom:'):
-                            print("\nAsiento seleccionado con exito.")
-                            spots.append(spot)
-                            break
-                        else:
-                            print('\nAsiento no disponible, intente otra vez.')
+                for n in range(cantidad_asientos): #Corre la cantidad de asientos insertada.
+                    seleccionado = False
+                    while seleccionado == False:
+                        spot = input('Ingrese el asiento que desea: ') #hacer lo que dice Emily para validar.
+                        for i in range(len(resultado.layout_vip)):
+                            for j in range(len(resultado.layout_vip[i])):
+                                if resultado.layout_vip[i][j] == spot:
+                                    seleccionado = True
+                                    print('Asiento seleccionado con exito')
+                                    spots.append(spot)
+
+                        if seleccionado == False:
+                            print('\nAsiento no disponible, seleccione otro.')
                 #Cuenta:
                 tickets = cantidad_asientos * resultado.ticket[1] 
                 IVA = tickets * 0.16
@@ -180,5 +190,3 @@ def get_cliente(lista, cedula):
             return lista[i]
 
 
-
-    
