@@ -13,23 +13,23 @@ class Event():
         self.vip_seats = vip_seats
     
     def show_title(self):
-        print(f'''\n------------------ Titulo ------------------\n
+        print(f'''\n-Titulo:\n
     {self.title}''')
     
     def show_poster(self):
         cont = 0
-        print('\n------------------ Actores ------------------\n')
+        print('\n-Actores: \n')
         for i in self.poster:
             cont+=1
             print(f'''{cont}. {i}''')
     
     def show_date(self):
-        print(f'''\n------------------ Fecha ------------------\n
+        print(f'''\n-Fecha:\n
         {self.date}''')
     
     def show_tickets(self):
         if self.opened == True:
-            print(f'''\n------------------ Tickets ------------------\n
+            print(f'''\n-Tickets: \n
             Sala General: Bs. {self.ticket[0]}. 
             Sala VIP: Bs. {self.ticket[1]}.''')
         else: 
@@ -37,8 +37,8 @@ class Event():
     
     def show_layout(self):
         if self.opened == True:
-            print(f'''\n------------------ Puestos ------------------\n''')
-            print('''\n------------------ General ------------------\n
+            print(f'''\n-Puestos:\n''')
+            print('''\n------------------ General -------------------\n
     Nota: los puestos con la plantita se encuentran ocupados.''')
             for i in self.layout_general: 
                 print(i)
@@ -76,7 +76,7 @@ class Theater(Event):
         self.synopsis = synopsis
     
     def show_synopsis(self):
-        print(f'''\n------------------ Sinopsis ------------------ 
+        print(f'''\n- Sinopsis: 
         \n{self.synopsis}''')
     
     def show_play(self):

@@ -95,7 +95,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 for n in range(cantidad_asientos): #Corre la cantidad de asientos insertada.
                     seleccionado = False
                     while seleccionado == False:
-                        spot = input('Ingrese el asiento que desea: ') #hacer lo que dice Emily para validar.
+                        spot = input('Ingrese el asiento que desea: ') 
                         for i in range(len(resultado.layout_general)):
                             for j in range(len(resultado.layout_general[i])):
                                 if resultado.layout_general[i][j] == spot:
@@ -127,7 +127,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 for n in range(cantidad_asientos): #Corre la cantidad de asientos insertada.
                     seleccionado = False
                     while seleccionado == False:
-                        spot = input('Ingrese el asiento que desea: ') #hacer lo que dice Emily para validar.
+                        spot = input('Ingrese el asiento que desea: ') 
                         for i in range(len(resultado.layout_vip)):
                             for j in range(len(resultado.layout_vip[i])):
                                 if resultado.layout_vip[i][j] == spot:
