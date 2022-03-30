@@ -1,6 +1,5 @@
 from Food_court import *
 from tools import *
-db = get_json()
 
 def fix_stock_drinks(amount): #Esta funcion divide la cnatidad de bebidas en tres partes, es una division entera, si la cantidad no es multiplo de tres, le suma el residuo al elemento del medio (seria el precio para las bebidas medianas).
     lista = []
@@ -41,7 +40,7 @@ def objectify_data_drinks(db, lista): #Esta funcion transforma los datos de la A
 			lista.append(drink_n)
 	return lista
 
-def buscar_producto(lista1, lista2): #Esta funcion sirve para buscar conciertos, retorna resultado.
+def buscar_producto(lista1, lista2): #Esta funcion sirve para buscar productos, retorna resultado.
     tipo = val_int('\nTipo de producto que buscar: \n1. Comidas. \n2. Bebidas. \n==> ', 3)
     if tipo == 1:
         print('\n---------------------------------\n')
@@ -74,6 +73,51 @@ def buscar_producto(lista1, lista2): #Esta funcion sirve para buscar conciertos,
             resultado=busqueda_precio_bebida(lista2)
             return resultado
 
+def buscar_producto_show(lista1, lista2): #Esta funcion sirve para buscar productos, retorna resultado.
+    tipo = val_int('\nTipo de producto que buscar: \n1. Comidas. \n2. Bebidas. \n==> ', 3)
+    if tipo == 1:
+        print('\n---------------------------------\n')
+        for i in lista1:
+            i.show_food()
+            print('\n---------------------------------\n')
+        filtro = val_int('''\nIngrese el filtro por el que desea buscarlo:
+        1. Nombre del producto
+        2. Rango de precio.
+        ==> ''', 3)
+        if filtro == 1:
+            resultado = busqueda_lineal(lista1)
+            if resultado == 2:
+                pass
+            else:
+                resultado.show_food()
+        else:
+            resultado=busqueda_precio_comida(lista1)
+            if resultado == 2:
+                pass
+            else:
+                resultado.show_food()
+    else:
+        print('\n---------------------------------\n')
+        for i in lista2:
+            i.show_drink()
+            print('\n---------------------------------\n')
+        filtro = val_int('''\nIngrese el filtro por el que desea buscarlo:
+        1. Nombre del producto
+        2. Rango de precio.
+        ==> ''', 3)
+        if filtro == 1:
+            resultado = busqueda_lineal(lista2)
+            if resultado == 2:
+                pass
+            else:
+                resultado.show_drink()
+        else:
+            resultado=busqueda_precio_bebida(lista2)
+            if resultado == 2:
+                pass
+            else:
+                resultado.show_drink()
+
 def busqueda_lineal(lista): #Esta funcion auxilia la funcion anterior de busqueda. 
     index = -1
     titulo = val_names('\nIngrese el nombre del producto que desea buscar: ')
@@ -95,22 +139,35 @@ def busqueda_precio_bebida(lista):
         for j in range(len(lista[i].price)):
             if n <= lista[i].price[j] <= m:
                 productos.append(lista[i].product_name)
-    print(productos)
-    resultado = busqueda_lineal(lista)
-    return resultado
+    if len(productos) > 0:
+        print(f'\nLas opciones disponibles en ese rango de precio son: ')
+        for i in productos:
+            print(f'\n{i}')
+        resultado = busqueda_lineal(lista)
+        return resultado
+    else:
+        print('\nNo hay articulos disponibles en ese rango de precios.')
+        return 2
 
 def busqueda_precio_comida(lista):
+    cont = 0
     print('\nIngrese el rango de precio que busca: ')
     n = val_int('Ingresa el precio minimo: ', 100)
     m = val_int('Ingresa el precio maximo: ', 100)
+    print('\nLas opciones disponibles en ese rango de precio son: ')
     for i in range(len(lista)):
         if n <= lista[i].price <= m:
-            print(lista[i].product_name)
-    resultado = busqueda_lineal(lista)
-    return resultado
+            cont+=1
+            print(f'\n{lista[i].product_name}')
+    if cont > 0:
+        resultado = busqueda_lineal(lista)
+        return resultado
+    else:
+        print('\nNo hay articulos disponibles en ese rango de precios.')
+        return 2
 
 def eliminar_producto(lista1, lista2):
-    print('\nSeleccion el producto que desea eliminar: ')
+    print('\nSeleccione el producto que desea eliminar: ')
     resultado = buscar_producto(lista1, lista2)
     for i in range(len(lista1)):
         if lista1[i] == resultado:
@@ -127,23 +184,25 @@ def eliminar_producto(lista1, lista2):
         else: 
             pass
     
+def ver_productos(lista1, lista2):
+    print('\n----------------- Comida ----------------\n')
+    for i in lista1:
+        i.show_food()
+        print('\n---------------------------------\n')
+    print('\n----------------- Bebidas ----------------\n')
+    for i in lista2:
+        i.show_drink()
+        print('\n---------------------------------\n')
+    
+#En las siguientes lineas de codigo, subi la informacion de la API en las carpetas locales, de ahora en adelante solo se editan esas carpetas, a menos que se quiera reiniciar la data a su estado original.
+#db = get_json()
+#comida = objectify_data_foods(db, [])
+#bebidas = objectify_data_drinks(db, [])
+#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Comida.txt', comida)
+#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Bebidas.txt', bebidas)
 
 
 
-comida = objectify_data_foods(db, [])
-bebidas = objectify_data_drinks(db, [])
-
-for i in bebidas:
-    print(i.product_name)
-eliminar_producto(comida, bebidas)
-for i in bebidas:
-    print(i.product_name)
-
-#bebidas[0].show_drink()
 
 
-#print(buscar_producto(comida, bebidas))
-
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt', conciertos)
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt', obras_teatro)
 

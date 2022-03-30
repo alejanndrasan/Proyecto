@@ -3,8 +3,10 @@ import emoji
 from tools import *
 from Modulo1 import *
 from Modulo2 import *
+from Modulo3 import *
+from Modulo4 import *
 
-db = get_json()
+#db = get_json()
 
 #Conciertos_DB.txt contiene todos los eventos del tipo musical, bajados de la API.
 #Obras_Teatro_DB.txt contiene todos los eventos del tipo teatro, bajados de la API
@@ -14,19 +16,24 @@ db = get_json()
 def main():
     conciertos = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt')
     obras_teatro = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt')
-    clientes = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Clientes.txt')
-    facturas = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Facturas.txt')
-    print(emoji.emojize('\n---------------------- Saman Show :deciduous_tree: ----------------------\n'))
-    print(conciertos[0].poster)
+    clientes = cargar_datos_vacios('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Clientes.txt')
+    facturas = cargar_datos_vacios('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Facturas.txt')
+    comida = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Comida.txt')
+    bebidas = cargar_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Bebidas.txt')
+    facturas_comida = cargar_datos_vacios('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Facturas_comida.txt')
     while True:
+        print(emoji.emojize('\n---------------------- Saman Show :deciduous_tree: ----------------------\n'))
         menu = val_int('''\nBienvenido a Saman Show, seleccione que accion desea realizar:
-        1. Ver eventos.
-        2. Abrir o cerrar venta de tickets.
-        3. Buscar evento.
-        4. Registrar cliente.
-        5. Registrar compra.
-        6. Salir
-        ==> ''', 7)
+\n1. Ver eventos.
+2. Abrir o cerrar venta de tickets.
+3. Buscar evento.
+4. Registrar cliente.
+5. Registrar compra.
+6. Buscar productos de la feria de comida.
+7. Eliminar productos de la feria de comida.
+8. Comprar articulo de la feria.
+9. Salir
+==> ''', 10)
 
         #MODULO 1:
         if menu == 1:
@@ -69,7 +76,25 @@ def main():
             subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Clientes.txt', clientes)
             subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Facturas.txt', facturas)
             subir_cambios(conciertos, obras_teatro)
+
+        #MODULO 3:
         if menu == 6:
+            resultado = buscar_producto_show(comida, bebidas)
+        if menu == 7:
+            eliminar_producto(comida, bebidas)
+            subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Comida.txt', comida)
+            subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Bebidas.txt', bebidas)
+        
+        #MODULO 4:
+        if menu == 8:
+            registrar_compra_feria(comida, bebidas, clientes, facturas)
+            subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Clientes.txt', clientes)
+            subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Facturas_comida.txt', facturas_comida)
+            subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Comida.txt', comida)
+            subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Bebidas.txt', bebidas)
+
+        
+        if menu == 9:
             break
     print('bye bye!')
 

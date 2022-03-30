@@ -24,7 +24,7 @@ def registrar_cliente(lista):
     if codigo == 1:
         nombre = val_names('\nIngrese su nombre completo: ')
         edad = val_int('\nIngrese su edad: ', 140)
-        cliente = Client(nombre, edad, cedula, [])
+        cliente = Client(nombre, edad, cedula, [], [])
         lista.append(cliente)
         print('\nCliente registrado con exito') 
         return lista
@@ -147,7 +147,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 resultado.vip_seats = resultado.vip_seats - cantidad_asientos
 
             #Regitrar compra en el cliente: registra en la lista de compras del cliente la compra realizada.
-            factura = Invoice(resultado.title, cantidad_asientos, cuenta, spots, None)
+            factura = Invoice(resultado.title, cantidad_asientos, cuenta, spots)
             lista4.append(factura)
             cliente.purchase.append(factura)
 
@@ -161,13 +161,18 @@ Total a pagar: {cuenta}''')
         
 def verificar_registro(lista, cedula):
     index = -1
-    for i in range(len(lista)):
-        if lista[i].id == cedula:
-            index=i
-    if index==-1:
+    if len(lista)==0:
         return 1
+
     else:
-        return 2
+        for i in range(len(lista)):
+            if lista[i].id == cedula:
+                index=i
+        if index==-1:
+            return 1
+        else:
+            return 2
+
 
 def get_cliente(lista, cedula):
     for i in range(len(lista)):

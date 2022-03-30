@@ -12,6 +12,15 @@ def cargar_datos(txt):
     file.close()
     return datos
 
+def cargar_datos_vacios(txt):
+    file = open(txt, 'rb')
+    try:
+        datos = pickle.load(file)
+    except EOFError:
+        datos = []
+    file.close()
+    return datos
+
 
     
 #Subir datos:
