@@ -13,8 +13,7 @@ class Event():
         self.vip_seats = vip_seats
     
     def show_title(self):
-        print(f'''\n-Titulo:\n
-    {self.title}''')
+        print(f'''\n-Titulo:{self.title}''')
     
     def show_poster(self):
         cont = 0
@@ -24,14 +23,13 @@ class Event():
             print(f'''{cont}. {i}''')
     
     def show_date(self):
-        print(f'''\n-Fecha:\n
-        {self.date}''')
+        print(f'''\n-Fecha:{self.date}''')
     
     def show_tickets(self):
         if self.opened == True:
             print(f'''\n-Tickets: \n
-            Sala General: Bs. {self.ticket[0]}. 
-            Sala VIP: Bs. {self.ticket[1]}.''')
+Sala General: Bs. {self.ticket[0]}. 
+Sala VIP: Bs. {self.ticket[1]}.''')
         else: 
             print('\nLa venta de este evento esta cerrada.') 
     
@@ -39,14 +37,14 @@ class Event():
         if self.opened == True:
             print(f'''\n-Puestos:\n''')
             print('''\n------------------ General -------------------\n
-    Nota: los puestos con la plantita se encuentran ocupados.''')
+Nota: los puestos con la plantita se encuentran ocupados.\n''')
             for i in self.layout_general: 
                 print(i)
             print('''\n------------------ VIP ------------------\n
-    Nota: los puestos con la flor se encuentran ocupados.''')
+Nota: los puestos con la flor se encuentran ocupados.''')
             for i in self.layout_vip: 
                 print(i)
-            print(f'''\n------------------ Escenario ------------------\n''') #ponerle emoji de pantalla
+            print(f'''      \n------------------ Escenario ------------------\n''') #ponerle emoji de pantalla
         else: 
             return 1
     

@@ -28,7 +28,7 @@ def main():
 \n2. Abrir o cerrar venta de tickets.
 \n3. Buscar evento.
 \n4. Registrar cliente.
-\n5. Registrar compra.
+\n5. Comprar Tickets.
 \n6. Buscar productos de la feria de comida.
 \n7. Eliminar productos de la feria de comida.
 \n8. Comprar articulo de la feria.
