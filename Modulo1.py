@@ -123,8 +123,8 @@ def ver_evento(lista1, lista2): #Esta funcion muestra los eventos en su forma de
 		print('\n******************************************************************************************************************************************\n')
 
 def subir_cambios(lista1, lista2): #Esta funcion actualiza lis archivos de texto despues de cambiar datos de los eventos
-	subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt', lista1)
-	subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt', lista2)
+	subir_datos('Conciertos_DB.txt', lista1)
+	subir_datos('Obras_Teatro_DB.txt', lista2)
 
 db = get_json()
 

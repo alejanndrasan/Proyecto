@@ -14,13 +14,13 @@ from Modulo5 import *
 
 
 def main():
-    conciertos = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Conciertos_DB.txt')
-    obras_teatro = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Obras_Teatro_DB.txt')
-    clientes = cargar_datos_vacios('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Clientes.txt')
-    facturas = cargar_datos_vacios('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Facturas.txt')
-    comida = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Comida.txt')
-    bebidas = cargar_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Bebidas.txt')
-    facturas_comida = cargar_datos_vacios('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Facturas_comida.txt')
+    conciertos = cargar_datos('Conciertos_DB.txt')
+    obras_teatro = cargar_datos('Obras_Teatro_DB.txt')
+    clientes = cargar_datos_vacios('Clientes.txt')
+    facturas = cargar_datos_vacios('Facturas.txt')
+    comida = cargar_datos('Comida.txt')
+    bebidas = cargar_datos('Bebidas.txt')
+    facturas_comida = cargar_datos_vacios('Facturas_comida.txt')
     while True:
         print(emoji.emojize('\n---------------------- Saman Show :deciduous_tree: ----------------------\n'))
         menu = val_int('''\nBienvenido a Saman Show, seleccione que accion desea realizar:
@@ -80,11 +80,11 @@ def main():
         #MODULO 2:
         if menu == 4:
             registrar_cliente(clientes)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Clientes.txt', clientes)
+            subir_datos('Clientes.txt', clientes)
         if menu == 5:
             registrar_compra(conciertos, obras_teatro, clientes, facturas)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Clientes.txt', clientes)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Facturas.txt', facturas)
+            subir_datos('Clientes.txt', clientes)
+            subir_datos('Facturas.txt', facturas)
             subir_cambios(conciertos, obras_teatro)
 
         #MODULO 3:
@@ -92,16 +92,16 @@ def main():
             resultado = buscar_producto_show(comida, bebidas)
         if menu == 7:
             eliminar_producto(comida, bebidas)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Comida.txt', comida)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Bebidas.txt', bebidas)
+            subir_datos('Comida.txt', comida)
+            subir_datos('Bebidas.txt', bebidas)
         
         #MODULO 4:
         if menu == 8:
             registrar_compra_feria(comida, bebidas, clientes, facturas)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Clientes.txt', clientes)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Facturas_comida.txt', facturas_comida)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Comida.txt', comida)
-            subir_datos('C:\\Users\\Alejandra\\Documents\\Unimet Ale\\PROYECTO\\Bebidas.txt', bebidas)
+            subir_datos('Clientes.txt', clientes)
+            subir_datos('Facturas_comida.txt', facturas_comida)
+            subir_datos('Comida.txt', comida)
+            subir_datos('Bebidas.txt', bebidas)
         
         #MODULO 5:
         if menu == 9:
