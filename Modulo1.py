@@ -43,23 +43,22 @@ def seats_quantity_vip(layout): #Esta funcion es para tener la cantidad de asien
 def objectify_data_concerts(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo Musica.
 	for event in range(len(db["events"])):         
 		if db["events"][event]["type"] == 1:
-			concert_n = Music(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), fix_layout_vip(db["events"][event]["layout"]), seats_quantity_general(db["events"][event]["layout"]), seats_quantity_vip(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["bands"], True)
+			concert_n = Music(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), fix_layout_vip(db["events"][event]["layout"]), seats_quantity_general(db["events"][event]["layout"]), seats_quantity_vip(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["bands"], True, 0)
 			lista.append(concert_n)
 	return lista
 
 def objectify_data_plays(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo Teatro.
 	for event in range(len(db["events"])):         
 		if db["events"][event]["type"] == 2:
-			play_n = Theater(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), fix_layout_vip(db["events"][event]["layout"]), seats_quantity_general(db["events"][event]["layout"]), seats_quantity_vip(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["synopsis"], True)
+			play_n = Theater(db["events"][event]["title"], db["events"][event]["cartel"],fix_layout(db["events"][event]["layout"]), fix_layout_vip(db["events"][event]["layout"]), seats_quantity_general(db["events"][event]["layout"]), seats_quantity_vip(db["events"][event]["layout"]), db["events"][event]["prices"], db["events"][event]["date"], db["events"][event]["synopsis"], True, 0)
 			lista.append(play_n)
 	return lista
 
 def buscar_evento(lista): #Esta funcion sirve para buscar conciertos, retorna resultado.
 	filtro = val_int('''\nIngrese el filtro por el que desea buscarlo:
 	1. Titulo
-	2. Artista o banda.
-	3. Fecha.
-	==> ''', 4)
+	2. Fecha.
+	==> ''', 3)
 	resultado = busqueda_lineal(filtro, lista)
 	return resultado
 
@@ -76,8 +75,6 @@ def busqueda_lineal(filtro, lista): #Esta funcion auxilia la funcion anterior de
 		else:
 			return lista[index]
 	elif filtro == 2:
-		return 2
-	elif filtro == 3:
 		index=-1
 		dia = val_int('\nIngresa el dia del evento que deseas buscar: ', 32)
 		dia = str(dia)
@@ -104,13 +101,16 @@ def abrir_cerrar(lista1, lista2): #Altera el estado de disponibilidad de los eve
 		resultado = buscar_evento(lista1)
 	if tipo == 2:
 		resultado = buscar_evento(lista2)
-	print(f'Evento seleccionado: {resultado.title}')
-	msg = val_int('1.Abrir venta de tickets. \n2.Cerrar venta de tickets. \n==> ', 3)
-	resultado.open_close(msg)
-	if resultado.opened == True:
-		print(f'Venta del evento {resultado.title} abierta')
+	if resultado != 2:
+		print(f'Evento seleccionado: {resultado.title}')
+		msg = val_int('1.Abrir venta de tickets. \n2.Cerrar venta de tickets. \n==> ', 3)
+		resultado.open_close(msg)
+		if resultado.opened == True:
+			print(f'Venta del evento {resultado.title} abierta')
+		else:
+			print(f'Venta del evento {resultado.title} cerrada')
 	else:
-		print(f'Venta del evento {resultado.title} cerrada')
+		pass
 
 def ver_evento(lista1, lista2): #Esta funcion muestra los eventos en su forma default.
 	print('\n ------------------------------------------------------------- Eventos musicales -------------------------------------------------------------\n')
@@ -126,13 +126,13 @@ def subir_cambios(lista1, lista2): #Esta funcion actualiza lis archivos de texto
 	subir_datos('Conciertos_DB.txt', lista1)
 	subir_datos('Obras_Teatro_DB.txt', lista2)
 
-db = get_json()
+#db = get_json()
 
 '''En estos comentarios subi la info inicial de la API a los archivos de texto, esto no se vuelve hacer, sino en la funcion de resetear la info.'''
 #conciertos = objectify_data_concerts(db, [])
 #obras_teatro = objectify_data_plays(db, [])
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Conciertos_DB.txt', conciertos)
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Obras_Teatro_DB.txt', obras_teatro)
+#subir_datos('Conciertos_DB.txt', conciertos)
+#subir_datos('Obras_Teatro_DB.txt', obras_teatro)
 
 
 

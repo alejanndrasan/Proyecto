@@ -57,7 +57,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                             else:
                                 break
                     else:
-                        otro = 3
+                        otro = 1
                         resultado.show_tickets()
                         respuesta = resultado.show_layout()
                         if respuesta == 1:
@@ -73,7 +73,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                             else:
                                 break
                     else:
-                        otro = 3
+                        otro = 1
                         resultado.show_tickets()
                         respuesta = resultado.show_layout()
                         if respuesta == 1:
@@ -92,6 +92,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
             if seccion == 1:
                 cantidad_asientos = val_int('\nIngrese la cantidad de asientos que desea comprar: ', (resultado.general_seats + 1)) 
                 spots = []
+                temps = []
                 for n in range(cantidad_asientos): #Corre la cantidad de asientos insertada.
                     seleccionado = False
                     while seleccionado == False:
@@ -101,7 +102,10 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                                 if resultado.layout_general[i][j] == spot:
                                     seleccionado = True
                                     print('Asiento seleccionado con exito')
+                                    temp = resultado.select_seats_general(spot)
+                                    temps.append(temp)
                                     spots.append(spot)
+
 
                         if seleccionado == False:
                             print('\nAsiento no disponible, seleccione otro.')
@@ -111,19 +115,20 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 tickets = cantidad_asientos * resultado.ticket[0]
                 IVA = tickets * 0.16
                 cuenta = tickets + IVA
-                print(f'\nPuestos: {spots}. \nTotal a pagar: {cuenta}') #Imprime lo que se pagaria, y pregunta si deseas continuar, si no, no se genera la factura, ni se altera el atributo purchase del cliente.
+                print(f'\nPuestos: {spots}. \nTotal a pagar: Bs. {cuenta}') #Imprime lo que se pagaria, y pregunta si deseas continuar, si no, no se genera la factura, ni se altera el atributo purchase del cliente.
                 pagar = val_int('\nDesea proceder con su compra: \n1.Si. \n2.No. \n==> ', 3)
                 if pagar == 2:
                     print('Hasta luego!')
+                    for i in range(len(spots)):
+                        resultado.deselect_seats_general(i,temps[i])
                     break
-                else:
-                    resultado.select_seats_general(spot) #Se marca en la base de datos que el asiento esta ocupado
 
 
             #VIP: se realiza lo mismo que en la seccion anterior, pero casteando los atributos _vip.
             if seccion == 2:
                 cantidad_asientos = val_int('\nIngrese la cantidad de asientos que desea comprar: ', (resultado.vip_seats + 1))
                 spots = []
+                temps = []
                 for n in range(cantidad_asientos): #Corre la cantidad de asientos insertada.
                     seleccionado = False
                     while seleccionado == False:
@@ -133,6 +138,9 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                                 if resultado.layout_vip[i][j] == spot:
                                     seleccionado = True
                                     print('Asiento seleccionado con exito')
+                                    resultado.select_seats_vip(spot)
+                                    temp = resultado.select_seats_vip(spot)
+                                    temps.append(temp)
                                     spots.append(spot)
 
                         if seleccionado == False:
@@ -141,13 +149,13 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 tickets = cantidad_asientos * resultado.ticket[1] 
                 IVA = tickets * 0.16
                 cuenta = tickets + IVA
-                print(f'\nPuestos: {spots}. \nTotal a pagar: {cuenta}')
+                print(f'\nPuestos: {spots}. \nTotal a pagar: Bs. {cuenta}')
                 pagar = val_int('\nDesea proceder con su compra: \n1.Si. \n2.No. \n==> ', 3)
                 if pagar == 2:
                     print('Hasta luego!')
+                    for i in range(len(spots)):
+                        resultado.deselect_seats_vip(i, temps[i])
                     break
-                else:
-                    resultado.select_seats_vip(spot) #Se marca en la base de datos que el asiento esta ocupado
 
             
             #Se le resta los asientos comprados al atributo de cantidad de asientos del evento seleccionado.
@@ -155,6 +163,8 @@ def registrar_compra(lista1, lista2, lista3, lista4):
                 resultado.general_seats = resultado.general_seats - cantidad_asientos 
             else:
                 resultado.vip_seats = resultado.vip_seats - cantidad_asientos
+            
+            resultado.ventas+=cuenta #para luego ver que evento genero mas ganancias.
 
             #Regitrar compra en el cliente: registra en la lista de compras del cliente la compra realizada.
             factura = Invoice(resultado.title, cantidad_asientos, cuenta, spots)
@@ -166,7 +176,7 @@ def registrar_compra(lista1, lista2, lista3, lista4):
 Nombre del cliente: {cliente.name}.
 C.I: {cliente.id}.
 Puestos: {spots}.
-Total a pagar: {cuenta}''')
+Total a pagar: Bs. {cuenta}''')
             break
         
 def verificar_registro(lista, cedula):

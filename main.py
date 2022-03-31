@@ -33,8 +33,12 @@ def main():
 \n7. Eliminar productos de la feria de comida.
 \n8. Comprar articulo de la feria.
 \n9. Calcular promedio de gastos de los clientes.
-\n10. Salir. 
-\n==> ''', 11)
+\n10. Porcentaje de clientes que no compran en la feria.
+\n11. Top 3 Clientes mas fieles a Saman Show.
+\n12. Top 3 Shows mas vendidos.
+\n13. Top 5 Productos de la feria mas comprados.
+\n14. Salir. 
+\n==> ''', 15)
 
         #MODULO 1:
         if menu == 1:
@@ -105,9 +109,44 @@ def main():
         
         #MODULO 5:
         if menu == 9:
-            print(round(promedio_gastos(clientes), 2))
-        
+            print(f'\nPromedio de gastos de los clientes: {promedio_gastos(clientes)}')
         if menu == 10:
+            print(f'\nPorcentaje de clientes que no compran en la feria: {porcentaje_sin_feria(clientes)}')
+        if menu == 11:
+            pass
+
+        #Shows y productos:
+        top_eventos, top_productos = top_eventos_productos(conciertos, obras_teatro, comida, bebidas)
+
+        if menu == 12:
+            cont=0
+            if len(top_eventos) == 0:
+                print('\nNo se han registrado eventos.')
+            elif 0 < len(top_eventos) <= 3:
+                for i in top_eventos:
+                    cont+=1
+                    print(f'\nTop {cont}: {i.title}')
+            else:
+                top3 = [top_eventos[0], top_eventos[1], top_eventos[2]]
+                for i in top3:
+                    cont+=1
+                    print(f'\nTop {cont}: {i.title}')
+        
+        if menu == 13:
+            cont=0
+            if len(top_productos) == 0:
+                print('\nNo se han registrado productos.')
+            elif 0 < len(top_productos) <= 3:
+                for i in top_productos:
+                    cont+=1
+                    print(f'\nTop {cont}: {i.product_name}')
+            else:
+                top3 = [top_productos[0], top_productos[1], top_productos[2], top_productos[3], top_productos[4]]
+                for i in top3:
+                    cont+=1
+                    print(f'\nTop {cont}: {i.product_name}')
+        
+        if menu == 14:
             break
     print('bye bye!')
 

@@ -91,13 +91,14 @@ Total a pagar: {cuenta}''')
                 producto = resultado.product_name, resultado.sizes[m-1]
                 cantidad = val_int('\nIngrese la cantidad que desea comprar: ', (resultado.stock[m-1] + 1))
                 cuenta = cantidad * resultado.price[m-1]
-                print(f'\nProducto: {producto}. \nTotal a pagar: {cuenta}') #Imprime lo que se pagaria, y pregunta si deseas continuar, si no, no se genera la factura, ni se altera el atributo purchase del cliente.
+                print(f'\nProducto: {producto}. \nTotal a pagar: Bs. {cuenta}') #Imprime lo que se pagaria, y pregunta si deseas continuar, si no, no se genera la factura, ni se altera el atributo purchase del cliente.
                 pagar = val_int('\nDesea proceder con su compra: \n1.Si. \n2.No. \n==> ', 3)
                 if pagar == 2:
                     print('Hasta luego!')
                     break
                 pedido_n = FoodCourt_Invoice(producto, cantidad, cuenta)
                 resultado.stock[m-1] -= cantidad
+                resultado.ventas += cuenta #Para ver que producto genero mas ganancias.
                 cliente.foodcourt_bill.append(pedido_n)
                 lista4.append(pedido_n)
                 #Factura:
@@ -105,7 +106,7 @@ Total a pagar: {cuenta}''')
 Nombre del cliente: {cliente.name}.
 C.I: {cliente.id}.
 Producto: {producto}.
-Total a pagar: {cuenta}''')
+Total a pagar: Bs. {cuenta}''')
                 break
             else:
                 print('\nProducto agotado')

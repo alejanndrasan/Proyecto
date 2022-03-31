@@ -1,13 +1,14 @@
 class Food_court:
-    def __init__(self, product_name, price, stock): #AGREGAR OPEN PORQUE SE ACABA EL STOCK
+    def __init__(self, product_name, price, stock, ventas): #AGREGAR OPEN PORQUE SE ACABA EL STOCK
         self.product_name = product_name
         self.price = price
         self.stock = stock
+        self.ventas = ventas
 
 
 class Drink(Food_court):
-    def __init__(self, product_name, price, stock, sizes):
-        super().__init__(product_name, price, stock)
+    def __init__(self, product_name, price, stock, sizes, ventas):
+        super().__init__(product_name, price, stock, ventas)
         self.sizes=sizes
     
     def show_drink(self):
@@ -21,8 +22,8 @@ Precio: Bs. {round(self.price[i], 2)}''')
 
 
 class Food(Food_court):
-    def __init__(self, product_name, price, stock, presentation):
-        super().__init__(product_name, price, stock)
+    def __init__(self, product_name, price, stock, presentation, ventas):
+        super().__init__(product_name, price, stock, ventas)
         self.presentation = presentation
     def show_presentation(self):
         if self.presentation == 1:

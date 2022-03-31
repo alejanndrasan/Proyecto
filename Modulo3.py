@@ -29,14 +29,14 @@ def fix_price_drinks(prices):
 def objectify_data_foods(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo comida.
 	for food in range(len(db["food_fair_inventory"])):         
 		if db["food_fair_inventory"][food]["type"] == 1:
-			food_n = Food(db["food_fair_inventory"][food]["name"], fix_price(db["food_fair_inventory"][food]["price"]),(db["food_fair_inventory"][food]["amount"]), (db["food_fair_inventory"][food]["presentation"]))
+			food_n = Food(product_name=db["food_fair_inventory"][food]["name"], price=fix_price(db["food_fair_inventory"][food]["price"]), stock=(db["food_fair_inventory"][food]["amount"]), presentation=(db["food_fair_inventory"][food]["presentation"]), ventas=0)
 			lista.append(food_n)
 	return lista
 
 def objectify_data_drinks(db, lista): #Esta funcion transforma los datos de la API en objetos, y crea la lista para los objetos tipo bebida.
 	for drink in range(len(db["food_fair_inventory"])):         
 		if db["food_fair_inventory"][drink]["type"] == 2:
-			drink_n = Drink(db["food_fair_inventory"][drink]["name"], fix_price_drinks(db["food_fair_inventory"][drink]["price"]),fix_stock_drinks(db["food_fair_inventory"][drink]["amount"]), (['P', 'M', 'G']))
+			drink_n = Drink(db["food_fair_inventory"][drink]["name"], fix_price_drinks(db["food_fair_inventory"][drink]["price"]),fix_stock_drinks(db["food_fair_inventory"][drink]["amount"]), (['P', 'M', 'G']), 0)
 			lista.append(drink_n)
 	return lista
 
@@ -139,6 +139,7 @@ def busqueda_precio_bebida(lista):
         for j in range(len(lista[i].price)):
             if n <= lista[i].price[j] <= m:
                 productos.append(lista[i].product_name)
+    
     if len(productos) > 0:
         print(f'\nLas opciones disponibles en ese rango de precio son: ')
         for i in productos:
@@ -198,8 +199,8 @@ def ver_productos(lista1, lista2):
 #db = get_json()
 #comida = objectify_data_foods(db, [])
 #bebidas = objectify_data_drinks(db, [])
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Comida.txt', comida)
-#subir_datos('C:\\Users\\Jsantos\\Desktop\\PROYECTO\\Bebidas.txt', bebidas)
+#subir_datos('Comida.txt', comida)
+#subir_datos('Bebidas.txt', bebidas)
 
 
 

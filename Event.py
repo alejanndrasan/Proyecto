@@ -1,7 +1,7 @@
 import emoji
 
 class Event():
-    def __init__(self, title, poster, layout_general, layout_vip, general_seats, vip_seats, ticket, date, opened):
+    def __init__(self, title, poster, layout_general, layout_vip, general_seats, vip_seats, ticket, date, opened, ventas):
         self.title = title
         self.poster = poster
         self.date = date
@@ -11,6 +11,7 @@ class Event():
         self.opened = opened #Pasar este atributo a False una vez que se llenen todos los puestos
         self.general_seats = general_seats
         self.vip_seats = vip_seats
+        self.ventas = ventas 
     
     def show_title(self):
         print(f'''\n-Titulo:{self.title}''')
@@ -53,13 +54,29 @@ Nota: los puestos con la flor se encuentran ocupados.''')
         for i in range(len(self.layout_general)):
             for j in range(len(self.layout_general[i])):
                 if spot == self.layout_general[i][j]:
+                    temp = [i, j]
                     self.layout_general[i][j] = emoji.emojize(':seedling:')
+                    return temp
+    
+    def deselect_seats_general(self, spot, temp):
+        for i in range(len(self.layout_general)):
+            for j in range(len(self.layout_general[i])):
+                if self.layout_general[temp[0]][temp[1]] == emoji.emojize(':seedling:'):
+                    self.layout_general[temp[0]][temp[1]] = spot
     
     def select_seats_vip(self, spot):
         for i in range(len(self.layout_vip)):
             for j in range(len(self.layout_vip[i])):
                 if spot == self.layout_vip[i][j]:
+                    temp = [i, j]
                     self.layout_vip[i][j] = emoji.emojize(':blossom:')
+                    return temp
+    
+    def deselect_seats_vip(self, spot, temp):
+        for i in range(len(self.layout_vip)):
+            for j in range(len(self.layout_vip[i])):
+                if self.layout_vip[temp[0]][temp[1]] == emoji.emojize(':blossom:'):
+                    self.layout_vip[temp[0]][temp[1]] = spot
 
     def open_close(self, msg):
         if msg == 1:
@@ -69,8 +86,8 @@ Nota: los puestos con la flor se encuentran ocupados.''')
 
 
 class Theater(Event):
-    def __init__(self, title, poster, layout_general, layout_vip,  general_seats, vip_seats, ticket, date, synopsis, opened):
-        Event.__init__(self, title, poster, layout_general, layout_vip, general_seats, vip_seats, ticket, date, opened)
+    def __init__(self, title, poster, layout_general, layout_vip,  general_seats, vip_seats, ticket, date, synopsis, opened, ventas):
+        Event.__init__(self, title, poster, layout_general, layout_vip, general_seats, vip_seats, ticket, date, opened, ventas)
         self.synopsis = synopsis
     
     def show_synopsis(self):
@@ -98,8 +115,8 @@ class Theater(Event):
 
     
 class Music(Event):
-    def __init__(self, title, poster, layout_general, layout_vip,  general_seats, vip_seats, ticket, date, q_band, opened):
-        Event.__init__(self, title, poster, layout_general, layout_vip, general_seats, vip_seats, ticket, date, opened)
+    def __init__(self, title, poster, layout_general, layout_vip,  general_seats, vip_seats, ticket, date, q_band, opened, ventas):
+        Event.__init__(self, title, poster, layout_general, layout_vip, general_seats, vip_seats, ticket, date, opened, ventas)
         
         self.q_band = q_band
     
