@@ -29,7 +29,6 @@ def promedio_gastos(lista):
     else:
         return '\nTodavia no se registra ninguna compra.'
 
-
 def porcentaje_sin_feria(lista):
     x = 0
     for cliente in lista:
@@ -41,32 +40,6 @@ def porcentaje_sin_feria(lista):
         return str(round(porcentaje, 2)) + '%'
     else:
         return '\nTodavia no se registra ninguna compra.'
-
-def top3_clientes(lista, lista2):
-    if len(lista2)==0:
-        return 0
-    else:
-        gastos = []
-
-        for cliente in lista:
-            gastos_n = len(cliente.purchase) + len(cliente.foodcourt_bill)
-            gastos.append([gastos_n, cliente.id])
-        
-        gastos_ordenados = sort_clientes(gastos)
-
-        top_clientes = []
-
-        for i in range(len(lista)):
-            if gastos_ordenados[i][1] == lista[i].id:
-                top_clientes.append(lista[i])
-        
-        if len(top_clientes) == 0:
-            return 0
-        elif 0 < len(top_clientes) <= 3:
-            return top_clientes
-        else:
-            top3 = [top_clientes[0], top_clientes[1], top_clientes[2]]
-            return top3
 
 def top_eventos_productos(conciertos, obras, comida, bebidas):
     eventos = combinar_listas(conciertos, obras, [])
@@ -118,11 +91,3 @@ def combinar_listas(lista1, lista2, lista_final):
 
 
 
-'''cont=0
-            top = top3_clientes(clientes, facturas)
-            if top == 0:
-                print('\nTodavia no hay ningun cliente registrado.')
-            else:
-                for i in top:
-                    cont+=1
-                    print(f'\nTop {cont}: {i.name}')'''

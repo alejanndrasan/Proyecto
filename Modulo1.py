@@ -126,21 +126,17 @@ def subir_cambios(lista1, lista2): #Esta funcion actualiza lis archivos de texto
 	subir_datos('Conciertos_DB.txt', lista1)
 	subir_datos('Obras_Teatro_DB.txt', lista2)
 
-#db = get_json()
+def reiniciar_data_eventos(conciertos, obras_teatro):
+	conciertos = []
+	obras_teatro = []
+	subir_datos('Conciertos_DB.txt', conciertos)
+	subir_datos('Obras_Teatro_DB.txt', obras_teatro)
+	db = get_json()
+	conciertos = objectify_data_concerts(db, [])
+	obras_teatro = objectify_data_plays(db, [])
+	subir_datos('Conciertos_DB.txt', conciertos)
+	subir_datos('Obras_Teatro_DB.txt', obras_teatro)
 
-'''En estos comentarios subi la info inicial de la API a los archivos de texto, esto no se vuelve hacer, sino en la funcion de resetear la info.'''
-#conciertos = objectify_data_concerts(db, [])
-#obras_teatro = objectify_data_plays(db, [])
-#subir_datos('Conciertos_DB.txt', conciertos)
-#subir_datos('Obras_Teatro_DB.txt', obras_teatro)
-
-
-
-
-
-
-
-
-
-
-
+#conciertos = cargar_datos('Conciertos_DB.txt')
+#obras_teatro = cargar_datos('Obras_Teatro_DB.txt')
+#reiniciar_data_eventos(conciertos, obras_teatro)

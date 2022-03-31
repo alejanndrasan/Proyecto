@@ -34,9 +34,9 @@ def main():
 \n8. Comprar articulo de la feria.
 \n9. Calcular promedio de gastos de los clientes.
 \n10. Porcentaje de clientes que no compran en la feria.
-\n11. Top 3 Clientes mas fieles a Saman Show.
-\n12. Top 3 Shows mas vendidos.
-\n13. Top 5 Productos de la feria mas comprados.
+\n11. Top 3 Shows mas vendidos.
+\n12. Top 5 Productos de la feria mas comprados.
+\n13. Reiniciar data.
 \n14. Salir. 
 \n==> ''', 15)
 
@@ -112,13 +112,11 @@ def main():
             print(f'\nPromedio de gastos de los clientes: {promedio_gastos(clientes)}')
         if menu == 10:
             print(f'\nPorcentaje de clientes que no compran en la feria: {porcentaje_sin_feria(clientes)}')
-        if menu == 11:
-            pass
 
         #Shows y productos:
         top_eventos, top_productos = top_eventos_productos(conciertos, obras_teatro, comida, bebidas)
 
-        if menu == 12:
+        if menu == 11:
             cont=0
             if len(top_eventos) == 0:
                 print('\nNo se han registrado eventos.')
@@ -132,7 +130,7 @@ def main():
                     cont+=1
                     print(f'\nTop {cont}: {i.title}')
         
-        if menu == 13:
+        if menu == 12:
             cont=0
             if len(top_productos) == 0:
                 print('\nNo se han registrado productos.')
@@ -145,6 +143,10 @@ def main():
                 for i in top3:
                     cont+=1
                     print(f'\nTop {cont}: {i.product_name}')
+        if menu == 13:
+            reiniciar_data(comida, bebidas)
+            reiniciar_data_eventos(conciertos, obras_teatro)
+            pass
         
         if menu == 14:
             break

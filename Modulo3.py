@@ -195,13 +195,23 @@ def ver_productos(lista1, lista2):
         i.show_drink()
         print('\n---------------------------------\n')
     
-#En las siguientes lineas de codigo, subi la informacion de la API en las carpetas locales, de ahora en adelante solo se editan esas carpetas, a menos que se quiera reiniciar la data a su estado original.
-#db = get_json()
-#comida = objectify_data_foods(db, [])
-#bebidas = objectify_data_drinks(db, [])
-#subir_datos('Comida.txt', comida)
-#subir_datos('Bebidas.txt', bebidas)
 
+def reiniciar_data(comida, bebidas):
+    comida = []
+    bebidas = []
+    subir_datos('Comida.txt', comida)
+    subir_datos('Bebidas.txt', bebidas)
+    db = get_json()
+    comida = objectify_data_foods(db, [])
+    bebidas = objectify_data_drinks(db, [])
+    subir_datos('Comida.txt', comida)
+    subir_datos('Bebidas.txt', bebidas)
+
+#En las siguientes lineas de codigo, subi la informacion de la API en las carpetas locales, de ahora en adelante solo se editan esas carpetas, a menos que se quiera reiniciar la data a su estado original.
+
+comida = cargar_datos('Comida.txt')
+bebidas = cargar_datos('Bebidas.txt')
+reiniciar_data(comida, bebidas)
 
 
 
